@@ -115,7 +115,7 @@ export function NodePanel() {
     const intro = [node.name, TYPE_LABEL[node.type], node.platform ? `Plataforma: ${node.platform}` : ""]
       .filter(Boolean)
       .join(". ");
-    const phrases = phrasesOf([intro, node.funcion, node.importancia]);
+    const phrases = phrasesOf([intro, node.funcion, node.importancia, node.arquitectura]);
     if (!phrases.length) return;
     setSpeaking(true);
     speakNow(synth, phrases, () => {
@@ -127,7 +127,7 @@ export function NodePanel() {
     <Holo
       strong
       data-testid="ficha"
-      className="pointer-events-auto absolute inset-x-3 bottom-32 z-40 flex max-h-[46dvh] w-auto flex-col overflow-hidden p-0 md:inset-x-auto md:bottom-8 md:right-24 md:w-[22rem]"
+      className="pointer-events-auto absolute inset-x-3 bottom-32 z-40 flex max-h-[62dvh] w-auto flex-col overflow-hidden p-0 md:inset-x-auto md:bottom-8 md:right-24 md:max-h-[72dvh] md:w-[22rem]"
     >
       <div className="flex items-start justify-between gap-3 px-4 pt-4">
         <div>
@@ -183,6 +183,14 @@ export function NodePanel() {
               <LinkedText text={node.importancia} />
             </p>
           </div>
+          {node.arquitectura ? (
+            <div>
+              <SectionLabel>Arquitectura operativa</SectionLabel>
+              <p className="mt-1 whitespace-pre-wrap text-sm leading-relaxed text-ink/85">
+                <LinkedText text={node.arquitectura} />
+              </p>
+            </div>
+          ) : null}
         </div>
 
         <div className="mt-3 pb-1">

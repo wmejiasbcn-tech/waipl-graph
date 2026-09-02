@@ -9,6 +9,7 @@ Este directorio indexa lo concebido, registrado y trazable. El código que lo ej
 | [00-adn.md](00-adn.md) | Principio de concepción previa |
 | [graphy/registro.md](graphy/registro.md) | Qué es Graphy, estado, decisiones de producto |
 | [graphy/nodos.md](graphy/nodos.md) | Índice de los 45 nodos y su círculo |
+| [graphy/emily.md](graphy/emily.md) | Arquitectura operativa de Emily, texto exacto |
 | [publicacion/principios-inteligencia-hibrida.md](publicacion/principios-inteligencia-hibrida.md) | Deck holográfico: seis principios, núcleo 11+1 |
 | [publicacion/estrategia-redes.md](publicacion/estrategia-redes.md) | Orden de salida: Gerardo, círculo, X, LinkedIn |
 | [publicacion/x.md](publicacion/x.md) | Hashtags y horas para X |
