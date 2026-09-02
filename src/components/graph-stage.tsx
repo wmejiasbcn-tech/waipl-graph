@@ -1,6 +1,8 @@
 import { useEffect, useState, type ComponentType } from "react";
 import { SafeBoundary } from "@/components/safe-boundary";
 
+void import("./graph-canvas");
+
 type GraphCanvasProps = { interactive: boolean; onFail?: () => void };
 
 function StageFallback() {

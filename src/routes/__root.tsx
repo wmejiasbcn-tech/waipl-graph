@@ -12,11 +12,11 @@ export const Route = createRootRoute({
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
       { title: APP_NAME },
-      { name: "theme-color", content: "#0A0A0B" },
+      { name: "theme-color", content: "#d6d1dc" },
       {
         name: "description",
         content:
-          "Ecosistema Digital Inmersivo — explorador holográfico y mapa Graphy de Will-AI Project Lab.",
+          "Ecosistema Digital Inmersivo — Graphy, Will-AI Project Lab.",
       },
     ],
     links: [

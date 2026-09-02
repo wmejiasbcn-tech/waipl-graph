@@ -3,8 +3,8 @@ import { Volume2, VolumeX } from "lucide-react";
 import { useEco } from "@/lib/store";
 import { cn } from "@/lib/cn";
 
-const BED = "/audio/ola.mp3";
-const MASTER = 0.28;
+const BED = "/audio/ambiente.mp3";
+const MASTER = 0.20;
 
 type Tide = {
   ctx: AudioContext;
@@ -59,10 +59,10 @@ function makeTide(ctx: AudioContext): Tide {
   voice.connect(master);
   master.connect(ctx.destination);
 
-  // Wave: rise, hold, fall, hold at the bottom, return.
-  connectLfo(ctx, 1 / 22.5, 0.26, 0.74, voice.gain, nodes);
-  connectLfo(ctx, 1 / 45, 500, 720, filter.frequency, nodes);
-  connectLfo(ctx, 1 / 36, 0.16, 0, pan.pan, nodes);
+  // Gentle breath, not a tide. Music already moves.
+  connectLfo(ctx, 1 / 42, 0.05, 0.95, voice.gain, nodes);
+  connectLfo(ctx, 1 / 64, 900, 9800, filter.frequency, nodes);
+  connectLfo(ctx, 1 / 54, 0.07, 0, pan.pan, nodes);
 
   return { ctx, master, voice, filter, source: null, nodes };
 }

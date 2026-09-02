@@ -4,16 +4,16 @@
   --font-sans: "Outfit", ui-sans-serif, system-ui, sans-serif;
   --font-display: "Outfit", ui-sans-serif, system-ui, sans-serif;
 
-  --color-mist: #d6d1dc;
-  --color-fog: #efeaf4;
-  --color-ink: #2c3040;
-  --color-muted: #6a6e80;
-  --color-gold: #c9a45c;
-  --color-pink: #e8a8b8;
-  --color-cyan: #7ec8d4;
-  --color-mint: #9fd4c4;
-  --color-peach: #efc4a8;
-  --color-lav: #b8a8d4;
+  --color-mist: #c5cbd4;
+  --color-fog: #e6ebf2;
+  --color-ink: #1a2330;
+  --color-muted: #546070;
+  --color-gold: #e0a018;
+  --color-pink: #e07a4a;
+  --color-cyan: #1ec8d4;
+  --color-mint: #1db888;
+  --color-peach: #e08a40;
+  --color-lav: #5b7cff;
   --color-void: #0a0a0b;
   --color-ivory: #efeaf4;
 
@@ -139,9 +139,9 @@
 
   .portal-tint {
     background:
-      radial-gradient(ellipse 60% 48% at 0% 100%, rgb(232 168 184 / 0.18), transparent 62%),
-      radial-gradient(ellipse 60% 48% at 100% 100%, rgb(126 200 212 / 0.12), transparent 62%),
-      radial-gradient(ellipse 48% 36% at 80% 8%, rgb(201 164 92 / 0.14), transparent 55%);
+      radial-gradient(ellipse 60% 48% at 0% 100%, rgb(224 122 74 / 0.22), transparent 62%),
+      radial-gradient(ellipse 60% 48% at 100% 100%, rgb(30 200 212 / 0.2), transparent 62%),
+      radial-gradient(ellipse 48% 36% at 80% 8%, rgb(224 160 24 / 0.22), transparent 55%);
   }
 
   .portal-veil {
@@ -169,6 +169,13 @@
     box-shadow: var(--shadow-holo);
     backdrop-filter: blur(12px) saturate(1.2);
     -webkit-backdrop-filter: blur(12px) saturate(1.2);
+  }
+
+  .node-label-sm {
+    font-size: 10px;
+    padding: 2px 7px;
+    font-weight: 500;
+    letter-spacing: 0.01em;
   }
 }
 
