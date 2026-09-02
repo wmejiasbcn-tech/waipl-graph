@@ -14,6 +14,7 @@ Explorador inmersivo público. El visitante recorre nodos sin entrar en el inter
 | Decisión | Estado |
 |---|---|
 | 46 nodos. Emily: sinapsis. Ollama: cuerpo físico. Arquitectura de Emily en la ficha, texto exacto | Hecho. Fuente: tabla oficial + arquitectura del Soberano |
+| Organismo operativo: 6 jurisdicciones. Tabla exacta | Hecho. [organismo-operativo.md](organismo-operativo.md) |
 | Texto de fichas = tabla, letra por letra | Hecho. `src/lib/graph-data.ts` |
 | Portada original: blasón, Ecosistema Digital Inmersivo, Entrar | Hecha. `src/components/portal-view.tsx` |
 | Entrar lleva al mapa, un toque | Hecho |
@@ -21,7 +22,7 @@ Explorador inmersivo público. El visitante recorre nodos sin entrar en el inter
 | Glosario en palabras de ficha | Hecho. `src/lib/glossary.ts` |
 | Ciudad cibernética: no es portada; se guarda para otro uso | Hecho. `public/identidad/ciudad-cibernetica.jpg` |
 | Lenguaje público en lo que ve el visitante | Vigente |
-| Deck holográfico de los 6 principios: núcleo 11+1. No sustituye a los 46 | Hecho. [publicacion/principios-inteligencia-hibrida.md](../publicacion/principios-inteligencia-hibrida.md). Lab [Will-AI-Project-Lab#42](https://github.com/wmejiasbcn-tech/Will-AI-Project-Lab/pull/42) |
+| Deck holográfico de los 6 principios: núcleo 11+1. Emily es el arco, no un anillo. No sustituye a los 46 | Hecho. [publicacion/principios-inteligencia-hibrida.md](../publicacion/principios-inteligencia-hibrida.md). Lab [Will-AI-Project-Lab#42](https://github.com/wmejiasbcn-tech/Will-AI-Project-Lab/pull/42) |
 
 ## Dónde corre
 
