@@ -1,11 +1,12 @@
-import { Suspense, useMemo, useRef, type ComponentRef } from "react";
+import { useEffect, useMemo, useRef, useState, type ComponentRef } from "react";
 import { Canvas, useFrame } from "@react-three/fiber";
-import { Line, Html, OrbitControls, useTexture } from "@react-three/drei";
+import { Line, Html, OrbitControls } from "@react-three/drei";
 import * as THREE from "three";
 import {
   EDGES,
   NODE_MAP,
   NODES,
+  VERIFY_TINT,
   type GraphNode,
   type Vec3,
 } from "@/lib/graph-data";
@@ -14,117 +15,16 @@ import {
   Atmosphere,
   DriftEmbers,
   FilamentHalo,
-  GlassSlabs,
   Helices,
+  NeuralDust,
   OrbitingGold,
-  SovereignBeam,
 } from "@/components/graph-forms";
-
-const RIBBONS: { color: string; pts: Vec3[] }[] = [
-  {
-    color: "#e8b8c8",
-    pts: [
-      [-8, -3.2, 4],
-      [-4, -1.4, 2.2],
-      [0.4, 0.2, 1.4],
-      [4.2, 1.6, -0.8],
-      [7.5, 0.4, -3.4],
-    ],
-  },
-  {
-    color: "#9fd4e0",
-    pts: [
-      [7.8, 3.4, 3.2],
-      [3.4, 2.2, 1.6],
-      [-0.6, 0.6, 0.2],
-      [-4.6, -1.2, -1.6],
-      [-8.2, -2.4, -3],
-    ],
-  },
-  {
-    color: "#c8b4e0",
-    pts: [
-      [-6.4, 3.8, -4],
-      [-2.2, 2.4, -2.2],
-      [1.4, 0.8, -0.6],
-      [5.2, -0.8, 1.8],
-      [8, -2.6, 3.4],
-    ],
-  },
-  {
-    color: "#f0c8b4",
-    pts: [
-      [5.6, -3.6, -5],
-      [2.2, -2, -2.8],
-      [-0.8, -0.4, -0.4],
-      [-3.6, 1.6, 2.4],
-      [-6.8, 3.2, 4.6],
-    ],
-  },
-];
-
-const SHARDS = [
-  { pos: [0.2, 0.6, 0.4] as Vec3, rot: [0.55, 0.7, -0.15] as Vec3, w: 7.4, h: 10.2 },
-  { pos: [-1.4, -0.2, 1.1] as Vec3, rot: [-0.4, -0.55, 0.3] as Vec3, w: 6.2, h: 8.6 },
-  { pos: [1.8, 0.9, -1.2] as Vec3, rot: [0.2, 1.1, 0.4] as Vec3, w: 5.4, h: 7.8 },
-  { pos: [-0.6, 1.4, -0.8] as Vec3, rot: [1.1, 0.2, -0.4] as Vec3, w: 4.8, h: 7.2 },
-];
 
 function vec(p: Vec3) {
   return new THREE.Vector3(p[0], p[1], p[2]);
 }
 
 function noRay() {}
-
-function Ribbon({ color, pts }: { color: string; pts: Vec3[] }) {
-  const geom = useMemo(() => {
-    const curve = new THREE.CatmullRomCurve3(pts.map(vec));
-    return new THREE.TubeGeometry(curve, 80, 0.11, 10, false);
-  }, [pts]);
-  return (
-    <mesh geometry={geom} raycast={noRay}>
-      <meshStandardMaterial
-        color={color}
-        roughness={0.28}
-        metalness={0.08}
-        emissive={color}
-        emissiveIntensity={0.08}
-      />
-    </mesh>
-  );
-}
-
-function Shards() {
-  return (
-    <group>
-      {SHARDS.map((s, i) => (
-        <mesh key={i} position={s.pos} rotation={s.rot} raycast={noRay}>
-          <planeGeometry args={[s.w, s.h]} />
-          <meshPhysicalMaterial
-            color="#cfc4ea"
-            transparent
-            opacity={0.13}
-            roughness={0.18}
-            metalness={0.04}
-            side={THREE.DoubleSide}
-            depthWrite={false}
-          />
-        </mesh>
-      ))}
-    </group>
-  );
-}
-
-function CityBackdrop() {
-  const tex = useTexture("/stills/city-wide.jpg");
-  tex.colorSpace = THREE.SRGBColorSpace;
-  return (
-    <mesh position={[0, 3.2, -32]} raycast={noRay}>
-      <planeGeometry args={[54, 30]} />
-      <meshBasicMaterial map={tex} />
-    </mesh>
-  );
-}
 
 function Pulse({ a, b, offset }: { a: Vec3; b: Vec3; offset: number }) {
   const ref = useRef<THREE.Mesh>(null);
@@ -153,40 +53,53 @@ function GraphNodeMesh({ node }: { node: GraphNode }) {
   const hoveredId = useEco((s) => s.hoveredId);
   const query = useEco((s) => s.query);
   const typeFilter = useEco((s) => s.typeFilter);
+  const verifyFilter = useEco((s) => s.verifyFilter);
+  const view = useEco((s) => s.view);
   const select = useEco((s) => s.select);
   const hover = useEco((s) => s.hover);
   const showLabels = useEco((s) => s.showLabels);
+  const reduceMotion = useEco((s) => s.reduceMotion);
   const active = selectedId === node.id;
   const hovered = hoveredId === node.id;
   const q = query.trim().toLowerCase();
   const matchesQuery = !q || node.name.toLowerCase().includes(q) || node.community.toLowerCase().includes(q);
   const matchesType = typeFilter === "all" || node.type === typeFilter;
-  const dim = (!matchesQuery || !matchesType) && !active;
+  const matchesVerify = verifyFilter === "all" || node.verify === verifyFilter;
+  const dim = (!matchesQuery || !matchesType || !matchesVerify) && !active;
   const isCore = node.type === "nucleo";
-  const showName = !dim && (hovered || active || (showLabels && (isCore || node.size >= 0.72)));
+  const verifyView = view === "verificacion";
+  const glow = VERIFY_TINT[node.verify];
+  const showName = !dim && (hovered || active || showLabels);
+  const group = useRef<THREE.Group>(null);
+  const seed = node.position[0] * 1.7 + node.position[2] * 0.9 + node.size;
 
   const mat = useMemo(
     () =>
       new THREE.MeshStandardMaterial({
         color: node.color,
-        emissive: node.color,
-        emissiveIntensity: isCore ? 0.45 : 0.22,
-        roughness: 0.32,
-        metalness: 0.18,
+        emissive: verifyView ? glow : node.color,
+        emissiveIntensity: isCore ? 0.7 : 0.48,
+        roughness: 0.22,
+        metalness: 0.28,
       }),
-    [node.color, isCore],
+    [node.color, isCore, verifyView, glow],
   );
 
-  useFrame((_, dt) => {
+  useFrame(({ clock }, dt) => {
     const d = Math.min(dt, 0.1);
-    mat.emissiveIntensity = THREE.MathUtils.damp(
-      mat.emissiveIntensity,
-      active ? 0.85 : hovered ? 0.5 : isCore ? 0.45 : 0.2,
-      8,
-      d,
-    );
-    mat.opacity = THREE.MathUtils.damp(mat.opacity, dim ? 0.12 : 1, 8, d);
+    const t = clock.elapsedTime;
+    const pulse = reduceMotion ? 0 : 0.18 * (0.5 + 0.5 * Math.sin(t * (node.verify === "ejecutar" ? 2.1 : node.verify === "contrastar" ? 1.2 : 0.65) + seed));
+    const base = active ? 1.05 : hovered ? 0.72 : verifyView ? 0.62 : isCore ? 0.62 : 0.42;
+    mat.emissiveIntensity = THREE.MathUtils.damp(mat.emissiveIntensity, dim ? 0.04 : base + pulse, 8, d);
+    mat.opacity = THREE.MathUtils.damp(mat.opacity, dim ? 0.1 : 1, 8, d);
     mat.transparent = dim;
+    if (group.current && !reduceMotion) {
+      group.current.position.set(
+        node.position[0] + Math.sin(t * 0.33 + seed) * 0.11,
+        node.position[1] + Math.cos(t * 0.27 + seed * 1.2) * 0.09,
+        node.position[2] + Math.sin(t * 0.21 + seed * 0.7) * 0.11,
+      );
+    }
   });
 
   const pick = (e: { stopPropagation: () => void }) => {
@@ -195,7 +108,11 @@ function GraphNodeMesh({ node }: { node: GraphNode }) {
   };
 
   return (
-    <group position={node.position}>
+    <group ref={group} position={node.position}>
+      <mesh raycast={noRay}>
+        <sphereGeometry args={[node.size * 0.78, 16, 16]} />
+        <meshBasicMaterial color={node.color} transparent opacity={0.16} depthWrite={false} />
+      </mesh>
       <mesh
         material={mat}
         onPointerDown={pick}
@@ -211,7 +128,7 @@ function GraphNodeMesh({ node }: { node: GraphNode }) {
         }}
         scale={active ? 1.18 : hovered ? 1.08 : 1}
       >
-        <sphereGeometry args={[node.size * 0.42, 28, 28]} />
+        <sphereGeometry args={[node.size * 0.42, 18, 18]} />
       </mesh>
       <mesh visible={false} onPointerDown={pick} onClick={pick}>
         <sphereGeometry args={[Math.max(node.size * 0.85, 0.55), 12, 12]} />
@@ -220,24 +137,19 @@ function GraphNodeMesh({ node }: { node: GraphNode }) {
         <>
           <mesh rotation={[Math.PI / 2, 0, 0]} raycast={noRay}>
             <torusGeometry args={[node.size * 0.62, 0.03, 10, 48]} />
-            <meshStandardMaterial color="#c9a45c" emissive="#c9a45c" emissiveIntensity={0.55} metalness={0.7} roughness={0.25} />
+            <meshStandardMaterial color="#e0a018" emissive="#e0a018" emissiveIntensity={0.7} metalness={0.7} roughness={0.22} />
           </mesh>
           <mesh raycast={noRay}>
-            <sphereGeometry args={[node.size * 0.58, 28, 28]} />
-            <meshPhysicalMaterial
-              color="#f3e4c0"
-              emissive="#c9a45c"
-              emissiveIntensity={0.35}
-              transparent
-              opacity={0.35}
-              roughness={0.12}
-              metalness={0.2}
-              transmission={0.45}
-              thickness={0.4}
-              depthWrite={false}
-            />
+            <sphereGeometry args={[node.size * 0.58, 16, 16]} />
+            <meshBasicMaterial color="#f6d56a" transparent opacity={0.28} depthWrite={false} />
           </mesh>
         </>
+      ) : null}
+      {verifyView && !dim ? (
+        <mesh rotation={[Math.PI / 2, 0.3, 0]} raycast={noRay}>
+          <torusGeometry args={[node.size * 0.7, 0.018, 8, 40]} />
+          <meshBasicMaterial color={glow} transparent opacity={0.85} />
+        </mesh>
       ) : null}
       {active ? (
         <mesh raycast={noRay}>
@@ -256,7 +168,7 @@ function GraphNodeMesh({ node }: { node: GraphNode }) {
           position={[0, node.size * 0.58, 0]}
           style={{ pointerEvents: "none", userSelect: "none" }}
         >
-          <div className="node-label">{node.name}</div>
+          <div className={node.size < 0.55 ? "node-label node-label-sm" : "node-label"}>{node.name}</div>
         </Html>
       ) : null}
     </group>
@@ -265,22 +177,35 @@ function GraphNodeMesh({ node }: { node: GraphNode }) {
 
 function Edges() {
   const selectedId = useEco((s) => s.selectedId);
-  return (
-    <group>
-      {EDGES.map((e) => {
+  const curves = useMemo(
+    () =>
+      EDGES.map((e, i) => {
         const a = NODE_MAP[e.source];
         const b = NODE_MAP[e.target];
         if (!a || !b) return null;
+        const mid = new THREE.Vector3(
+          (a.position[0] + b.position[0]) / 2,
+          (a.position[1] + b.position[1]) / 2 + 0.22 + (i % 5) * 0.08,
+          (a.position[2] + b.position[2]) / 2,
+        );
+        const curve = new THREE.QuadraticBezierCurve3(vec(a.position), mid, vec(b.position));
+        return { e, pts: curve.getPoints(16) };
+      }).filter(Boolean) as { e: (typeof EDGES)[number]; pts: THREE.Vector3[] }[],
+    [],
+  );
+  return (
+    <group>
+      {curves.map(({ e, pts }) => {
         const hot = selectedId === e.source || selectedId === e.target;
-        const color = hot ? "#c9a45c" : e.kind === "nucleo" ? "#d4b8c8" : "#b8c4d4";
+        const color = hot ? "#e8c04a" : e.kind === "nucleo" ? "#e08a48" : "#3ec8e0";
         return (
           <Line
             key={`${e.source}-${e.target}`}
-            points={[a.position, b.position]}
+            points={pts}
             color={color}
-            lineWidth={hot ? 2.2 : 1.15}
+            lineWidth={hot ? 2.4 : 1.2}
             transparent
-            opacity={hot ? 0.9 : 0.42}
+            opacity={hot ? 0.95 : 0.38}
             raycast={noRay}
           />
         );
@@ -333,7 +258,7 @@ function CameraRig({ interactive }: { interactive: boolean }) {
       autoRotate={autoRotate && !reduceMotion && !selectedId}
       autoRotateSpeed={0.38}
       minDistance={4.2}
-      maxDistance={22}
+      maxDistance={28}
       minPolarAngle={0.35}
       maxPolarAngle={Math.PI * 0.78}
       enablePan={interactive}
@@ -346,21 +271,13 @@ function Scene({ interactive }: { interactive: boolean }) {
   return (
     <>
       <Atmosphere />
-      <Suspense fallback={null}>
-        <CityBackdrop />
-      </Suspense>
-      <Shards />
-      <GlassSlabs />
-      <SovereignBeam />
+      <NeuralDust />
       <Helices />
       <FilamentHalo />
       <OrbitingGold />
       {quality === "alta" ? <DriftEmbers /> : null}
-      {RIBBONS.map((r, i) => (
-        <Ribbon key={i} color={r.color} pts={r.pts} />
-      ))}
       <Edges />
-      <Pulses />
+      {quality === "alta" ? <Pulses /> : null}
       {NODES.map((n) => (
         <GraphNodeMesh key={n.id} node={n} />
       ))}
@@ -379,13 +296,27 @@ export function GraphCanvas({
   const quality = useEco((s) => s.quality);
   const reduceMotion = useEco((s) => s.reduceMotion);
   const select = useEco((s) => s.select);
+  const [hidden, setHidden] = useState(false);
+
+  useEffect(() => {
+    const onVis = () => setHidden(document.hidden);
+    document.addEventListener("visibilitychange", onVis);
+    return () => document.removeEventListener("visibilitychange", onVis);
+  }, []);
 
   return (
     <Canvas
-      camera={{ position: [0.5, 1.4, 10.6], fov: 42, near: 0.1, far: 90 }}
-      dpr={quality === "alta" ? [1, 1.5] : [1, 1]}
-      gl={{ antialias: quality === "alta", alpha: false, powerPreference: "default", failIfMajorPerformanceCaveat: false }}
-      frameloop={reduceMotion ? "demand" : "always"}
+      camera={{ position: [0.6, 1.8, 13.2], fov: 42, near: 0.1, far: 90 }}
+      dpr={quality === "alta" ? [1, 1.35] : [1, 1]}
+      gl={{
+        antialias: quality === "alta",
+        alpha: false,
+        powerPreference: quality === "alta" ? "high-performance" : "low-power",
+        failIfMajorPerformanceCaveat: false,
+        stencil: false,
+        depth: true,
+      }}
+      frameloop={reduceMotion || hidden || !interactive ? "demand" : "always"}
       style={{
         touchAction: "none",
         width: "100%",

@@ -3,35 +3,23 @@ import { useFrame } from "@react-three/fiber";
 import * as THREE from "three";
 import { useEco } from "@/lib/store";
 
-const FOG = "#d4cfd9";
-const GOLD = "#c9a45c";
-const CYAN = "#7ec8d4";
-const SILVER = "#c5cdd6";
-const INK = "#2a2e38";
+const FOG = "#0d1826";
+const GOLD = "#e0a018";
+const CYAN = "#1ec8d4";
 
 function noRay() {}
 
-function helixCurve(radius: number, height: number, turns: number, phase: number) {
-  const pts: THREE.Vector3[] = [];
-  const n = 72;
-  for (let i = 0; i <= n; i++) {
-    const t = i / n;
-    const a = t * Math.PI * 2 * turns + phase;
-    pts.push(new THREE.Vector3(Math.cos(a) * radius, (t - 0.5) * height, Math.sin(a) * radius));
-  }
-  return new THREE.CatmullRomCurve3(pts);
-}
-
 export function Atmosphere() {
   const reduceMotion = useEco((s) => s.reduceMotion);
-  const gold = useMemo(() => new THREE.Color("#e8d7b0"), []);
-  const cyan = useMemo(() => new THREE.Color("#c5d8e4"), []);
+  const quality = useEco((s) => s.quality);
+  const gold = useMemo(() => new THREE.Color("#1a2a3c"), []);
+  const cyan = useMemo(() => new THREE.Color("#123048"), []);
   const mist = useMemo(() => new THREE.Color(FOG), []);
   const mix = useMemo(() => new THREE.Color(FOG), []);
 
   useFrame(({ clock, scene }) => {
     const u = reduceMotion ? 0.45 : 0.5 + 0.5 * Math.sin(clock.elapsedTime * 0.11);
-    mix.copy(mist).lerp(gold, u * 0.38).lerp(cyan, (1 - u) * 0.32);
+    mix.copy(mist).lerp(gold, u * 0.28).lerp(cyan, (1 - u) * 0.22);
     const fog = scene.fog as THREE.Fog | null;
     if (fog) fog.color.copy(mix);
     scene.background = mix;
@@ -40,12 +28,17 @@ export function Atmosphere() {
   return (
     <>
       <color attach="background" args={[FOG]} />
-      <fog attach="fog" args={[FOG, 12, 38]} />
-      <hemisphereLight args={["#f4eef6", "#b7c4cc", 0.9]} />
-      <ambientLight intensity={0.5} />
-      <pointLight position={[0, 1.1, 0]} intensity={1.5} color="#ffe6b8" distance={16} />
-      <pointLight position={[3.2, 2.4, -2]} intensity={0.7} color="#9fd4e8" distance={14} />
-      <directionalLight position={[8, 10, 6]} intensity={0.48} color="#fff4ea" />
+      <fog attach="fog" args={[FOG, 14, 42]} />
+      <hemisphereLight args={["#4a6a88", "#061018", 0.7]} />
+      <ambientLight intensity={0.28} />
+      <pointLight position={[0, 1.1, 0]} intensity={2.1} color="#ffd060" distance={18} />
+      {quality === "alta" ? (
+        <>
+          <pointLight position={[3.2, 2.4, -2]} intensity={1.35} color="#2ad4e0" distance={16} />
+          <pointLight position={[-3.4, 1.6, 2.2]} intensity={0.9} color="#5b7cff" distance={14} />
+        </>
+      ) : null}
+      <directionalLight position={[8, 10, 6]} intensity={0.28} color="#c8e4ff" />
     </>
   );
 }
@@ -53,32 +46,29 @@ export function Atmosphere() {
 export function Helices() {
   const reduceMotion = useEco((s) => s.reduceMotion);
   const group = useRef<THREE.Group>(null);
-  const geos = useMemo(
+  const rings = useMemo(
     () => [
-      new THREE.TubeGeometry(helixCurve(1.42, 3.6, 2.15, 0), 72, 0.048, 8, false),
-      new THREE.TubeGeometry(helixCurve(1.58, 3.4, 2.15, 2.1), 72, 0.042, 8, false),
-      new THREE.TubeGeometry(helixCurve(1.74, 3.2, 2.15, 4.2), 72, 0.038, 8, false),
+      { r: 2.85, color: GOLD, opacity: 0.28 },
+      { r: 4.65, color: CYAN, opacity: 0.22 },
+      { r: 5.45, color: "#14C4B0", opacity: 0.16 },
+      { r: 6.35, color: "#1DB888", opacity: 0.18 },
+      { r: 7.55, color: "#7B6CFF", opacity: 0.16 },
+      { r: 8.45, color: "#4A8EE8", opacity: 0.14 },
     ],
     [],
   );
 
   useFrame((_, dt) => {
     if (reduceMotion || !group.current) return;
-    group.current.rotation.y += Math.min(dt, 0.1) * 0.12;
+    group.current.rotation.y += Math.min(dt, 0.1) * 0.06;
   });
 
-  const colors = [GOLD, SILVER, INK];
   return (
-    <group ref={group} position={[0, 0.35, 0]}>
-      {geos.map((geom, i) => (
-        <mesh key={i} geometry={geom} raycast={noRay}>
-          <meshStandardMaterial
-            color={colors[i]}
-            emissive={colors[i]}
-            emissiveIntensity={i === 2 ? 0.04 : 0.22}
-            metalness={0.55}
-            roughness={0.28}
-          />
+    <group ref={group} position={[0, 0.2, 0]} rotation={[0.18, 0, 0.08]}>
+      {rings.map((ring) => (
+        <mesh key={ring.r} rotation={[Math.PI / 2, 0, 0]} raycast={noRay}>
+          <torusGeometry args={[ring.r, 0.012, 8, 96]} />
+          <meshBasicMaterial color={ring.color} transparent opacity={ring.opacity} depthWrite={false} />
         </mesh>
       ))}
     </group>
@@ -100,14 +90,10 @@ export function FilamentHalo() {
   );
   const inner = useMemo(
     () =>
-      new THREE.MeshPhysicalMaterial({
-        color: "#dfeaf0",
+      new THREE.MeshBasicMaterial({
+        color: "#8ad4e8",
         transparent: true,
-        opacity: 0.12,
-        roughness: 0.08,
-        metalness: 0.15,
-        transmission: 0.7,
-        thickness: 0.4,
+        opacity: 0.1,
         depthWrite: false,
       }),
     [],
@@ -159,37 +145,6 @@ export function GlassSlabs() {
   );
 }
 
-export function SovereignBeam() {
-  const geom = useMemo(() => {
-    const curve = new THREE.CatmullRomCurve3([
-      new THREE.Vector3(-11, -5.5, -6),
-      new THREE.Vector3(-4, -1.2, -2),
-      new THREE.Vector3(0.2, 0.4, 0.4),
-      new THREE.Vector3(5, 2.6, 3),
-      new THREE.Vector3(12, 7.2, 7),
-    ]);
-    return new THREE.TubeGeometry(curve, 64, 0.035, 6, false);
-  }, []);
-  const reduceMotion = useEco((s) => s.reduceMotion);
-  const mat = useMemo(
-    () =>
-      new THREE.MeshStandardMaterial({
-        color: GOLD,
-        emissive: GOLD,
-        emissiveIntensity: 0.55,
-        transparent: true,
-        opacity: 0.7,
-        depthWrite: false,
-      }),
-    [],
-  );
-  useFrame(({ clock }) => {
-    if (reduceMotion) return;
-    mat.emissiveIntensity = 0.4 + 0.35 * (0.5 + 0.5 * Math.sin(clock.elapsedTime * 1.1));
-  });
-  return <mesh geometry={geom} material={mat} raycast={noRay} />;
-}
-
 export function DriftEmbers() {
   const quality = useEco((s) => s.quality);
   const reduceMotion = useEco((s) => s.reduceMotion);
@@ -229,7 +184,7 @@ export function DriftEmbers() {
   return (
     <instancedMesh ref={mesh} args={[undefined, undefined, count]} raycast={noRay}>
       <sphereGeometry args={[1, 8, 8]} />
-      <meshBasicMaterial color="#f0e0b8" transparent opacity={0.55} depthWrite={false} />
+      <meshBasicMaterial color="#7ee8ff" transparent opacity={0.7} depthWrite={false} />
     </instancedMesh>
   );
 }
@@ -243,4 +198,52 @@ export function OrbitingGold() {
     light.current.position.set(Math.cos(t) * 4.2, 1.4 + Math.sin(t * 0.7) * 0.6, Math.sin(t) * 4.2);
   });
   return <pointLight ref={light} intensity={0.85} color="#ffd9a0" distance={12} position={[4, 1.4, 0]} />;
+}
+
+export function NeuralDust() {
+  const quality = useEco((s) => s.quality);
+  const reduceMotion = useEco((s) => s.reduceMotion);
+  const count = quality === "alta" ? 110 : 36;
+  const mesh = useRef<THREE.InstancedMesh>(null);
+  const dummy = useMemo(() => new THREE.Object3D(), []);
+  const seeds = useMemo(
+    () =>
+      Array.from({ length: 160 }, (_, i) => {
+        const a = (i * 2.399) % (Math.PI * 2);
+        const r = 1.4 + (i % 23) * 0.38;
+        return {
+          x: Math.cos(a) * r,
+          y: ((i * 11) % 17) * 0.22 - 1.8,
+          z: Math.sin(a) * r * 0.92,
+          s: 0.018 + (i % 5) * 0.006,
+          p: i * 0.21,
+        };
+      }),
+    [],
+  );
+
+  useFrame(({ clock }) => {
+    const inst = mesh.current;
+    if (!inst) return;
+    const t = reduceMotion ? 0 : clock.elapsedTime;
+    for (let i = 0; i < count; i++) {
+      const s = seeds[i];
+      dummy.position.set(
+        s.x + Math.sin(t * 0.21 + s.p) * 0.22,
+        s.y + Math.cos(t * 0.17 + s.p) * 0.16,
+        s.z + Math.sin(t * 0.15 + s.p * 0.8) * 0.22,
+      );
+      dummy.scale.setScalar(s.s * (0.85 + 0.25 * Math.sin(t * 1.4 + s.p)));
+      dummy.updateMatrix();
+      inst.setMatrixAt(i, dummy.matrix);
+    }
+    inst.instanceMatrix.needsUpdate = true;
+  });
+
+  return (
+    <instancedMesh ref={mesh} args={[undefined, undefined, count]} raycast={noRay}>
+      <sphereGeometry args={[1, 6, 6]} />
+      <meshBasicMaterial color="#5ee0ff" transparent opacity={0.45} depthWrite={false} />
+    </instancedMesh>
+  );
 }

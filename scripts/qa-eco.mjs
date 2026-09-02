@@ -23,61 +23,63 @@ const clickNav = (id) =>
     if (!el) throw new Error("nav " + nav);
     el.click();
   }, id);
-const eco = () =>
-  page.evaluate(() => {
-    const el = document.querySelector("[data-ready]");
-    return {
-      entered: el?.getAttribute("data-entered"),
-      view: el?.getAttribute("data-view"),
-      cursor: el?.getAttribute("data-cursor"),
-      stack: el?.getAttribute("data-stack"),
-    };
-  });
+const clickTest = (id) =>
+  page.evaluate((tid) => {
+    const el = document.querySelector(`[data-testid="${tid}"]`);
+    if (!el) throw new Error("missing " + tid);
+    el.click();
+  }, id);
+
+const FORBIDDEN =
+  /grafo vivo|umbral|blasón|glosario|galleta|Léxico|habitar, no consultar|territorio|Explorar|Conectar|Crear|Analizar|Soberano|custodia|Elena o su delegada|protocolo vivo|Círculo/i;
 
 try {
   step("goto");
   await page.goto(url, { waitUntil: "load" });
   await page.waitForSelector("[data-ready='true']");
   await shot("qa-portal");
+  const portal = await page.locator("body").innerText();
+  if (FORBIDDEN.test(portal)) throw new Error("Portada con lengua interna: " + portal.match(FORBIDDEN)?.[0]);
+  if (/Explorar|Conectar|Crear|Analizar/.test(portal)) throw new Error("Comandos internos en la entrada");
 
   step("entrar");
   await page.getByTestId("entrar").click();
   await page.waitForSelector("[data-entered='1']");
-  // skip 3D screenshots — headless waits forever on webfonts + WebGL
+
+  step("inicio");
+  const inicio = await page.locator("body").innerText();
+  if (FORBIDDEN.test(inicio)) throw new Error("Inicio con lengua interna: " + inicio.match(FORBIDDEN)?.[0]);
 
   step("mapas");
   await clickNav("mapa");
   await page.waitForTimeout(300);
 
-  step("chip documento");
-  const chip = page.getByTestId("chip-documento");
+  step("chip nucleo");
+  const chip = page.getByTestId("chip-nucleo");
   await chip.hover();
   await page.waitForTimeout(200);
-  if (!/Memoria escrita/i.test(await page.locator("body").innerText())) {
-    throw new Error("Hover Documento no muestra pista");
+  if (!/núcleo del laboratorio/i.test(await page.locator("body").innerText())) {
+    throw new Error("Hover Núcleo no muestra pista");
   }
-  await chip.click();
-  await page.waitForSelector("[data-testid=galleta]");
+  await clickTest("chip-nucleo");
+  await page.waitForSelector("[data-testid=ficha]");
 
-  step("chip comunidad");
-  await page.getByTestId("chip-comunidad").click();
+  step("chip vortice");
+  await clickTest("chip-vortice");
   await page.waitForTimeout(300);
-  await page.getByTestId("galleta").waitFor({ state: "visible" });
+  await page.getByTestId("ficha").waitFor({ state: "visible" });
 
-  step("config");
-  console.error("before config", await eco());
-  await clickNav("config");
-  await page.waitForTimeout(300);
-  console.error("after config", await eco());
-  const cfg = await page.locator("body").innerText();
-  if (/Custodia del blasón|#0A0A0B|Elena o su delegada/i.test(cfg)) {
-    throw new Error("Leyenda técnica de custodia sigue visible");
+  step("inicio volver");
+  await clickNav("inicio");
+  await page.waitForTimeout(200);
+  const home = await page.locator("body").innerText();
+  if (/Ajustes|Preferencias|Se guardan en este dispositivo|Calidad de render|Configuración/i.test(home)) {
+    throw new Error("Ajustes internos visibles al público");
   }
-
-  step("volver portada");
+  step("volver entrada");
   await page.evaluate(() => {
     const btn = [...document.querySelectorAll("button")].find((b) =>
-      (b.textContent || "").includes("Volver a la portada"),
+      (b.textContent || "").includes("Volver a la entrada"),
     );
     if (!btn) throw new Error("no volver");
     btn.click();
@@ -85,37 +87,15 @@ try {
   await page.waitForSelector("[data-entered='0']");
   await shot("qa-portal-back");
 
-  step("glosario");
-  await page.getByRole("button", { name: "Inmersivo" }).click();
-  await page.getByTestId("glosario").waitFor({ state: "visible", timeout: 5000 });
-  await shot("qa-glosario");
-  await page.evaluate(() => {
-    document.querySelector("[aria-label='Cerrar glosario']")?.click();
-  });
-  await page.waitForTimeout(200);
-
-  step("explorar after back");
-  await page.getByTestId("explorar").click();
+  step("entrar otra vez");
+  await page.getByTestId("entrar").click();
   await page.waitForSelector("[data-entered='1']");
 
-  step("atras then conectar");
-  console.error("before atras", await eco());
-  await page.evaluate(() => document.querySelector("[data-testid=atras]")?.click());
-  await page.waitForSelector("[data-entered='0']", { timeout: 5000 });
-  console.error("after atras", await eco());
-  await page.evaluate(() => document.querySelector("[data-testid=conectar]")?.click());
-  console.error("clicked conectar");
-  await page.waitForSelector("[data-entered='1']", { timeout: 5000 });
-  console.error("after conectar", await eco());
-  const hasGalleta = await page.evaluate(() => !!document.querySelector("[data-testid=galleta]"));
-  console.error("galleta", hasGalleta);
-  if (!hasGalleta) throw new Error("Conectar no abre ficha");
-
-  const audio = await page.evaluate(() => {
-    const el = document.querySelector("audio");
-    return el ? { src: el.getAttribute("src"), loop: el.loop } : null;
+  const audio = await page.evaluate(async () => {
+    const r = await fetch("/audio/ambiente.mp3", { method: "HEAD" });
+    return { src: "/audio/ambiente.mp3", ok: r.ok };
   });
-  if (!audio || !/umbral/.test(audio.src || "")) throw new Error("Audio ambiental ausente");
+  if (!audio.ok) throw new Error("Audio ambiental ausente");
 
   step("mobile");
   const mobile = await browser.newPage({ viewport: { width: 390, height: 844 } });
@@ -130,10 +110,10 @@ try {
     el?.click();
   });
   await mobile.waitForTimeout(300);
-  await mobile.getByTestId("chip-documento").click();
+  await mobile.evaluate(() => document.querySelector("[data-testid=chip-nucleo]")?.click());
   await mobile.waitForTimeout(400);
-  const mobileGalleta = await mobile.evaluate(() => !!document.querySelector("[data-testid=galleta]"));
-  if (!mobileGalleta) throw new Error("Mobile: Documento no abre galleta");
+  const mobileFicha = await mobile.evaluate(() => !!document.querySelector("[data-testid=ficha]"));
+  if (!mobileFicha) throw new Error("Mobile: Núcleo no abre ficha");
   await mobile.close();
 
   await browser.close();

@@ -1,8 +1,8 @@
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
-import type { NodeType } from "./graph-data";
+import type { NodeType, VerifyKind } from "./graph-data";
 
-export type EcoView = "inicio" | "mapa" | "analisis" | "config";
+export type EcoView = "inicio" | "mapa" | "analisis" | "verificacion" | "config";
 
 type EcoSettings = {
   autoRotate: boolean;
@@ -28,6 +28,7 @@ type EcoState = EcoSettings &
     hoveredId: string | null;
     query: string;
     typeFilter: NodeType | "all";
+    verifyFilter: VerifyKind | "all";
     glossaryId: string | null;
     stack: Frame[];
     cursor: number;
@@ -38,6 +39,7 @@ type EcoState = EcoSettings &
     hover: (id: string | null) => void;
     setQuery: (q: string) => void;
     setTypeFilter: (t: NodeType | "all") => void;
+    setVerifyFilter: (v: VerifyKind | "all") => void;
     openGlossary: (id: string) => void;
     closeGlossary: () => void;
     toggleAutoRotate: () => void;
@@ -77,6 +79,7 @@ export const useEco = create<EcoState>()(
       hoveredId: null,
       query: "",
       typeFilter: "all",
+      verifyFilter: "all",
       glossaryId: null,
       autoRotate: true,
       showLabels: true,
@@ -86,25 +89,37 @@ export const useEco = create<EcoState>()(
       stack: [START],
       cursor: 0,
       enter: (opts) =>
-        set((s) =>
-          commit(s, {
+        set((s) => {
+          if (s.entered && !opts?.view && opts?.selectedId === undefined) return s;
+          return commit(s, {
             entered: true,
-            view: opts?.view ?? "inicio",
-            selectedId: opts?.selectedId ?? null,
-          }),
-        ),
+            view: opts?.view ?? "mapa",
+            selectedId: opts?.selectedId ?? s.selectedId,
+          });
+        }),
       replayPortal: () => set((s) => commit(s, { entered: false, selectedId: null })),
-      setView: (view) => set((s) => commit(s, { view })),
+      setView: (view) =>
+        set((s) => {
+          const next = commit(s, { view });
+          if (view !== "verificacion") {
+            return { ...next, verifyFilter: "all" as const };
+          }
+          return next;
+        }),
       select: (id) =>
         set((s) =>
           commit(s, {
             selectedId: id,
-            view: id ? "mapa" : s.view,
+            view:
+              id && s.view !== "mapa" && s.view !== "verificacion"
+                ? "mapa"
+                : s.view,
           }),
         ),
       hover: (id) => set({ hoveredId: id }),
       setQuery: (query) => set({ query }),
       setTypeFilter: (typeFilter) => set({ typeFilter }),
+      setVerifyFilter: (verifyFilter) => set({ verifyFilter }),
       openGlossary: (glossaryId) => set({ glossaryId }),
       closeGlossary: () => set({ glossaryId: null }),
       toggleAutoRotate: () => set((s) => ({ autoRotate: !s.autoRotate })),
@@ -130,8 +145,8 @@ export const useEco = create<EcoState>()(
         }),
     }),
     {
-      name: "waipl-eco-v4",
-      version: 4,
+      name: "waipl-eco-v5",
+      version: 5,
       skipHydration: true,
       partialize: (s) => ({
         autoRotate: s.autoRotate,

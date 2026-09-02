@@ -1,90 +1,48 @@
 import type { ReactNode } from "react";
-import { useEffect, useRef, useState } from "react";
-import {
-  Area,
-  AreaChart,
-  Bar,
-  BarChart,
-  CartesianGrid,
-  ResponsiveContainer,
-  Tooltip,
-  XAxis,
-  YAxis,
-} from "recharts";
-import { Eye, EyeOff, RotateCcw, Sparkles, Volume2, VolumeX } from "lucide-react";
+import { useState } from "react";
+import { RotateCcw, Sparkles } from "lucide-react";
 import { Holo, HoloButton, SectionLabel } from "@/components/holo";
 import { GlossaryButton } from "@/components/glossary-panel";
 import { NodePanel } from "@/components/node-panel";
-import { SafeBoundary } from "@/components/safe-boundary";
-import { Term } from "@/components/term";
 import {
-  ACTIVITY,
+  CIRCLE_VERIFY,
   COMMUNITIES,
   degreeOf,
   EDGES,
   NODES,
   TYPE_LABEL,
   TYPE_TINT,
+  VERIFY_HINT,
+  VERIFY_LABEL,
+  VERIFY_QUESTION,
+  VERIFY_TINT,
   type NodeType,
+  type VerifyKind,
 } from "@/lib/graph-data";
 import { TYPE_HINT } from "@/lib/glossary";
-import { APEX_URL } from "@/lib/hosts";
 import { useEco } from "@/lib/store";
 import { cn } from "@/lib/cn";
 
 const TYPES: NodeType[] = [
+  "universo",
+  "hardware",
+  "movil",
+  "manifestacion",
   "nucleo",
-  "laboratorio",
-  "agente",
-  "protocolo",
-  "documento",
-  "comunidad",
-  "flujo",
-  "accion",
+  "vortice",
+  "trancita",
+  "kuiper",
+  "estructura",
+  "borde",
 ];
 
 const GALLERY = [
-  { src: "/stills/swirl.jpg", title: "Portada", caption: "El umbral, antes de entrar", action: "portal" as const, term: "portada" },
-  { src: "/stills/ribbons.jpg", title: "Flujos", caption: "Cintas que recorren el territorio", action: "mapa" as const, term: "flujo" },
-  { src: "/stills/graphy.jpg", title: "Mapa Graphy", caption: "El grafo tocable", action: "mapa" as const, term: "graphy" },
-  { src: "/stills/explorer.jpg", title: "Análisis", caption: "El pulso del ecosistema", action: "analisis" as const, term: "explorador" },
+  { src: "/stills/swirl.jpg", title: "Entrada", caption: "Will-AI Project Lab", action: "portal" as const },
+  { src: "/stills/ribbons.jpg", title: "Mapa", caption: "Vista general", action: "mapa" as const },
+  { src: "/stills/graphy.jpg", title: "Graphy", caption: "Lo que se puede ver del universo WAIPL", action: "mapa" as const },
+  { src: "/stills/explorer.jpg", title: "Análisis", caption: "Nodos y vínculos", action: "analisis" as const },
+  { src: "/stills/graphy.jpg", title: "Verificación", caption: "Ejecutar, contrastar, mapa", action: "verificacion" as const },
 ];
-
-const tooltipStyle = {
-  background: "color-mix(in oklab, white 72%, transparent)",
-  border: "1px solid color-mix(in oklab, white 58%, transparent)",
-  borderRadius: 12,
-  fontSize: 12,
-  color: "#2c3040",
-};
-
-function ChartBox({ className, children }: { className: string; children: ReactNode }) {
-  const ref = useRef<HTMLDivElement>(null);
-  const [ready, setReady] = useState(false);
-  useEffect(() => {
-    const el = ref.current;
-    if (!el) return;
-    const sync = () => {
-      const r = el.getBoundingClientRect();
-      setReady(r.width > 16 && r.height > 16);
-    };
-    sync();
-    const ro = new ResizeObserver(sync);
-    ro.observe(el);
-    return () => ro.disconnect();
-  }, []);
-  return (
-    <div ref={ref} className={className}>
-      {ready ? (
-        <SafeBoundary fallback={null}>
-          <ResponsiveContainer width="100%" height="100%" minWidth={16} minHeight={16} debounce={50}>
-            {children as never}
-          </ResponsiveContainer>
-        </SafeBoundary>
-      ) : null}
-    </div>
-  );
-}
 
 function PanelFrame({ children }: { children: ReactNode }) {
   return (
@@ -97,59 +55,27 @@ function PanelFrame({ children }: { children: ReactNode }) {
 export function InicioOverlay() {
   const setView = useEco((s) => s.setView);
   const replayPortal = useEco((s) => s.replayPortal);
-  const openGlossary = useEco((s) => s.openGlossary);
-  const last = ACTIVITY[ACTIVITY.length - 1];
 
   return (
     <PanelFrame>
       <div className="stagger-in flex flex-col gap-3 pb-2">
         <Holo strong className="p-5">
-          <SectionLabel>Explorador Inmersivo</SectionLabel>
-          <h2 className="mt-1 text-2xl font-light tracking-tight text-ink">El grafo está despierto</h2>
+          <SectionLabel>Will-AI Project Lab</SectionLabel>
+          <h2 className="mt-1 text-2xl font-light tracking-tight text-ink">Graphy</h2>
           <p className="mt-2 text-sm leading-relaxed text-muted">
-            Esto es un{" "}
-            <Term id="grafo" className="text-muted">
-              grafo vivo
-            </Term>
-            : cada esfera es un{" "}
-            <Term id="nodo" className="text-muted">
-              nodo
-            </Term>
-            , cada hilo una relación. La{" "}
-            <Term id="portada" className="text-muted">
-              portada
-            </Term>{" "}
-            es el umbral. El{" "}
-            <Term id="graphy" className="text-muted">
-              Mapa Graphy
-            </Term>{" "}
-            se toca y se orbita. Las palabras subrayadas abren el glosario.
+            Lo que se puede ver del universo WAIPL.
           </p>
           <div className="mt-4 grid grid-cols-3 gap-2">
             <Stat k="Nodos" v={String(NODES.length)} />
             <Stat k="Vínculos" v={String(EDGES.length)} />
-            <Stat k="Flujos" v={String(last.flujos)} />
+            <Stat k="Grupos" v={String(COMMUNITIES.length)} />
           </div>
-        </Holo>
-
-        <Holo className="p-4">
-          <SectionLabel>Flujos activos</SectionLabel>
-          <ChartBox className="mt-2 h-36">
-            <AreaChart data={ACTIVITY} margin={{ top: 8, right: 8, left: 0, bottom: 0 }}>
-              <CartesianGrid stroke="rgba(44,48,64,0.08)" vertical={false} />
-              <XAxis dataKey="mes" tick={{ fill: "#6a6e80", fontSize: 11 }} axisLine={false} tickLine={false} />
-              <YAxis width={28} tick={{ fill: "#6a6e80", fontSize: 10 }} axisLine={false} tickLine={false} />
-              <Tooltip contentStyle={tooltipStyle} />
-              <Area type="monotone" dataKey="flujos" stroke="#7ec8d4" fill="#7ec8d4" fillOpacity={0.28} />
-              <Area type="monotone" dataKey="nodos" stroke="#c9a45c" fill="#c9a45c" fillOpacity={0.18} />
-            </AreaChart>
-          </ChartBox>
         </Holo>
 
         <div className="grid grid-cols-2 gap-2">
           {GALLERY.map((g) => (
             <button
-              key={g.src}
+              key={g.title}
               type="button"
               onClick={() => {
                 if (g.action === "portal") replayPortal();
@@ -161,34 +87,20 @@ export function InicioOverlay() {
               <span className="block px-3 py-2">
                 <span className="block text-sm font-medium text-ink">{g.title}</span>
                 <span className="block text-xs text-muted">{g.caption}</span>
-                <span
-                  className="mt-1 inline-block text-[11px] text-gold underline decoration-dotted"
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    openGlossary(g.term);
-                  }}
-                  onKeyDown={(e) => {
-                    if (e.key === "Enter") {
-                      e.stopPropagation();
-                      openGlossary(g.term);
-                    }
-                  }}
-                  role="link"
-                  tabIndex={0}
-                >
-                  ¿Qué es esto?
-                </span>
               </span>
             </button>
           ))}
         </div>
 
-        <div className="grid grid-cols-2 gap-2">
+        <div className="grid grid-cols-1 gap-2">
           <HoloButton className="min-h-12" onClick={() => setView("mapa")}>
             <Sparkles className="h-4 w-4" />
             Abrir mapa
           </HoloButton>
-          <GlossaryButton className="min-h-12" />
+          <HoloButton className="min-h-12" onClick={replayPortal}>
+            <RotateCcw className="h-4 w-4" />
+            Volver a la entrada
+          </HoloButton>
         </div>
       </div>
     </PanelFrame>
@@ -207,11 +119,12 @@ function Stat({ k, v }: { k: string; v: string }) {
 export function MapaChrome() {
   const query = useEco((s) => s.query);
   const setQuery = useEco((s) => s.setQuery);
-  const typeFilter = useEco((s) => s.typeFilter);
+  const rawFilter = useEco((s) => s.typeFilter);
   const setTypeFilter = useEco((s) => s.setTypeFilter);
   const select = useEco((s) => s.select);
   const selectedId = useEco((s) => s.selectedId);
   const [chipHint, setChipHint] = useState<string | null>(null);
+  const typeFilter = rawFilter === "all" || TYPES.includes(rawFilter) ? rawFilter : "all";
 
   const q = query.trim().toLowerCase();
   const hits = NODES.filter((n) => {
@@ -222,7 +135,7 @@ export function MapaChrome() {
       TYPE_LABEL[n.type].toLowerCase().includes(q);
     const byType = typeFilter === "all" || n.type === typeFilter;
     return byQuery && byType;
-  }).slice(0, 8);
+  });
 
   const openType = (t: NodeType | "all") => {
     setTypeFilter(t);
@@ -239,21 +152,21 @@ export function MapaChrome() {
       <div className="pointer-events-auto absolute inset-x-3 top-20 z-30 md:inset-x-auto md:left-4 md:top-24 md:w-[22rem]">
         <Holo strong className="p-3">
           <label className="sr-only" htmlFor="grafo-buscar">
-            Buscar nodo
+            Buscar
           </label>
           <input
             id="grafo-buscar"
             value={query}
             onChange={(e) => setQuery(e.target.value)}
-            placeholder="Buscar nodo o comunidad…"
+            placeholder="Buscar…"
             className="h-11 w-full rounded-md bg-fog/70 px-3 text-sm text-ink outline-none placeholder:text-muted"
           />
           <div className="mt-2 flex flex-wrap gap-1.5">
             <FilterChip
               label="Todos"
               active={typeFilter === "all"}
-              hint="Ver todos los nodos"
-              onEnter={() => setChipHint("Ver todos los nodos")}
+              hint="Ver todos"
+              onEnter={() => setChipHint("Ver todos")}
               onLeave={() => setChipHint(null)}
               onClick={() => openType("all")}
             />
@@ -272,12 +185,12 @@ export function MapaChrome() {
             ))}
           </div>
           <p className="mt-2 px-1 text-xs leading-relaxed text-muted">
-            {chipHint ?? "Pasa el puntero por un tipo. Tócalo para abrir su ficha."}
+            {chipHint ?? "Pasa el puntero por un grupo. Tócalo para abrir su ficha. Las palabras subrayadas abren el glosario."}
           </p>
           {typeFilter !== "all" || q ? (
-            <ul className="mt-2 flex flex-col">
+            <ul className="hud-scroll mt-2 flex max-h-48 flex-col md:max-h-64">
               {hits.length === 0 ? (
-                <li className="px-1 py-2 text-sm text-muted">Ningún nodo coincide.</li>
+                <li className="px-1 py-2 text-sm text-muted">Ningún resultado.</li>
               ) : (
                 hits.map((n) => (
                   <li key={n.id}>
@@ -302,7 +215,7 @@ export function MapaChrome() {
           ) : null}
         </Holo>
         <p className="mt-2 hidden px-2 text-xs text-muted md:block">
-          Arrastra para orbitar · el nombre aparece al pasar el puntero
+          Arrastra para girar · el nombre aparece al pasar el puntero
         </p>
       </div>
       <NodePanel />
@@ -356,18 +269,13 @@ export function AnalisisOverlay() {
   const select = useEco((s) => s.select);
   const ranked = [...NODES]
     .map((n) => ({ ...n, degree: degreeOf(n.id) }))
-    .sort((a, b) => b.degree - a.degree)
-    .slice(0, 8);
-
-  const byType = TYPES.map((t) => ({
-    tipo: TYPE_LABEL[t],
-    n: NODES.filter((x) => x.type === t).length,
-    fill: TYPE_TINT[t],
-  }));
+    .sort((a, b) => b.degree - a.degree);
+  const hubs = ranked.filter((n) => n.degree > 1);
 
   const byCommunity = COMMUNITIES.map((c) => ({
     name: c,
     n: NODES.filter((x) => x.community === c).length,
+    fill: TYPE_TINT[TYPES.find((t) => TYPE_LABEL[t] === c) ?? "universo"],
   }));
 
   return (
@@ -375,51 +283,26 @@ export function AnalisisOverlay() {
       <div className="stagger-in flex flex-col gap-3 pb-2">
         <Holo strong className="p-5">
           <SectionLabel>Análisis</SectionLabel>
-          <h2 className="mt-1 text-2xl font-light tracking-tight text-ink">Nodos y flujos</h2>
+          <h2 className="mt-1 text-2xl font-light tracking-tight text-ink">Composición</h2>
           <p className="mt-2 text-sm leading-relaxed text-muted">
-            Lectura temporal del ecosistema. El mapa muestra la geometría; aquí, el pulso.
+            {NODES.length} nodos, {EDGES.length} vínculos, {COMMUNITIES.length} grupos.
           </p>
+          <GlossaryButton className="mt-4 w-full" />
         </Holo>
 
         <Holo className="p-4">
-          <SectionLabel>Serie anual</SectionLabel>
-          <ChartBox className="mt-2 h-40">
-            <BarChart data={ACTIVITY} margin={{ top: 8, right: 8, left: 0, bottom: 0 }}>
-              <CartesianGrid stroke="rgba(44,48,64,0.08)" vertical={false} />
-              <XAxis dataKey="mes" tick={{ fill: "#6a6e80", fontSize: 11 }} axisLine={false} tickLine={false} />
-              <YAxis width={28} tick={{ fill: "#6a6e80", fontSize: 10 }} axisLine={false} tickLine={false} />
-              <Tooltip contentStyle={tooltipStyle} />
-              <Bar dataKey="nodos" fill="#c9a45c" radius={[6, 6, 0, 0]} />
-              <Bar dataKey="flujos" fill="#7ec8d4" radius={[6, 6, 0, 0]} />
-            </BarChart>
-          </ChartBox>
-        </Holo>
-
-        <Holo className="p-4">
-          <SectionLabel>Por tipo</SectionLabel>
+          <SectionLabel>Grupos</SectionLabel>
           <ul className="mt-3 flex flex-col gap-2">
-            {byType.map((t) => (
-              <li key={t.tipo} className="flex items-center gap-3 text-sm">
-                <span className="w-28 shrink-0 text-muted">{t.tipo}</span>
+            {byCommunity.map((c) => (
+              <li key={c.name} className="flex items-center gap-3 text-sm">
+                <span className="w-32 shrink-0 text-muted">{c.name}</span>
                 <span className="h-2 flex-1 overflow-hidden rounded-full bg-fog">
                   <span
                     className="block h-full rounded-full"
-                    style={{ width: `${(t.n / NODES.length) * 100}%`, background: t.fill }}
+                    style={{ width: `${(c.n / NODES.length) * 100}%`, background: c.fill }}
                   />
                 </span>
-                <span className="w-6 text-right text-ink">{t.n}</span>
-              </li>
-            ))}
-          </ul>
-        </Holo>
-
-        <Holo className="p-4">
-          <SectionLabel>Comunidades</SectionLabel>
-          <ul className="mt-3 grid grid-cols-2 gap-2">
-            {byCommunity.map((c) => (
-              <li key={c.name} className="holo-quiet rounded-md px-3 py-2">
-                <p className="text-xs text-muted">{c.name}</p>
-                <p className="text-lg font-medium text-ink">{c.n}</p>
+                <span className="w-6 text-right text-ink">{c.n}</span>
               </li>
             ))}
           </ul>
@@ -428,7 +311,7 @@ export function AnalisisOverlay() {
         <Holo className="p-4">
           <SectionLabel>Mayor grado</SectionLabel>
           <ol className="mt-2 flex flex-col">
-            {ranked.map((n) => (
+            {hubs.map((n) => (
               <li key={n.id}>
                 <button
                   type="button"
@@ -444,152 +327,168 @@ export function AnalisisOverlay() {
               </li>
             ))}
           </ol>
+          <p className="mt-2 px-1 text-xs leading-relaxed text-muted">
+            Los demás tienen un vínculo con WAIPL.
+          </p>
         </Holo>
       </div>
     </PanelFrame>
   );
 }
 
-export function ConfigOverlay() {
-  const autoRotate = useEco((s) => s.autoRotate);
-  const showLabels = useEco((s) => s.showLabels);
-  const reduceMotion = useEco((s) => s.reduceMotion);
-  const quality = useEco((s) => s.quality);
-  const toggleAutoRotate = useEco((s) => s.toggleAutoRotate);
-  const toggleLabels = useEco((s) => s.toggleLabels);
-  const toggleMotion = useEco((s) => s.toggleMotion);
-  const setQuality = useEco((s) => s.setQuality);
-  const replayPortal = useEco((s) => s.replayPortal);
-  const setQuery = useEco((s) => s.setQuery);
-  const setTypeFilter = useEco((s) => s.setTypeFilter);
+const LENSES: VerifyKind[] = ["ejecutar", "contrastar", "mapa"];
+
+export function VerificacionOverlay() {
   const select = useEco((s) => s.select);
-  const sound = useEco((s) => s.sound);
-  const toggleSound = useEco((s) => s.toggleSound);
+  const verifyFilter = useEco((s) => s.verifyFilter);
+  const setVerifyFilter = useEco((s) => s.setVerifyFilter);
+  const typeFilter = useEco((s) => s.typeFilter);
+  const setTypeFilter = useEco((s) => s.setTypeFilter);
+  const [openCircle, setOpenCircle] = useState<NodeType | null>("nucleo");
+
+  const toggleLens = (k: VerifyKind) => {
+    setVerifyFilter(verifyFilter === k ? "all" : k);
+  };
+
+  const matching = NODES.filter((n) => verifyFilter === "all" || n.verify === verifyFilter);
 
   return (
+    <>
     <PanelFrame>
       <div className="stagger-in flex flex-col gap-3 pb-2">
         <Holo strong className="p-5">
-          <SectionLabel>Configuración</SectionLabel>
-          <h2 className="mt-1 text-2xl font-light tracking-tight text-ink">Preferencias de órbita</h2>
+          <SectionLabel>Tres preguntas</SectionLabel>
+          <h2 className="mt-1 text-2xl font-light tracking-tight text-ink">Verificación</h2>
           <p className="mt-2 text-sm leading-relaxed text-muted">
-            Ajusta el render, el movimiento y las etiquetas. Los cambios se guardan en este dispositivo.
+            Toca una lente. El mapa enciende solo lo que responde a esa pregunta.
           </p>
         </Holo>
 
-        <Holo className="divide-y divide-ink/10 p-2">
-          <ToggleRow
-            label="Rotación automática"
-            hint="El grafo orbita cuando no hay nodo seleccionado"
-            on={autoRotate}
-            onClick={toggleAutoRotate}
-          />
-          <ToggleRow
-            label="Etiquetas"
-            hint="Nombres sobre el núcleo y los nodos mayores"
-            on={showLabels}
-            icon={showLabels ? Eye : EyeOff}
-            onClick={toggleLabels}
-          />
-          <ToggleRow
-            label="Reducir movimiento"
-            hint="Detiene pulsos, auto-órbita y el bucle continuo"
-            on={reduceMotion}
-            onClick={toggleMotion}
-          />
-          <ToggleRow
-            label="Ambiente"
-            hint="Capa sonora etérea de las cinemáticas originales"
-            on={sound}
-            icon={sound ? Volume2 : VolumeX}
-            onClick={toggleSound}
-          />
+        <div className="grid grid-cols-1 gap-2 sm:grid-cols-3">
+          {LENSES.map((k) => {
+            const active = verifyFilter === k;
+            const n = NODES.filter((node) => node.verify === k).length;
+            return (
+              <button
+                key={k}
+                type="button"
+                onClick={() => toggleLens(k)}
+                className={cn(
+                  "rounded-xl p-4 text-left transition-transform duration-200",
+                  active ? "holo-strong" : "holo",
+                )}
+                style={{
+                  boxShadow: active
+                    ? `0 0 0 1px ${VERIFY_TINT[k]}, 0 0 28px -8px ${VERIFY_TINT[k]}`
+                    : undefined,
+                }}
+              >
+                <span
+                  className="mb-2 block h-1.5 w-8 rounded-full"
+                  style={{ background: VERIFY_TINT[k] }}
+                />
+                <span className="block text-sm font-medium text-ink">{VERIFY_LABEL[k]}</span>
+                <span className="mt-1 block text-xs leading-relaxed text-muted">
+                  {VERIFY_QUESTION[k]}
+                </span>
+                <span className="mt-2 block text-lg font-medium text-ink">{n}</span>
+              </button>
+            );
+          })}
+        </div>
+
+        <Holo className="p-4">
+          <SectionLabel>{verifyFilter === "all" ? "Todos los nodos" : VERIFY_HINT[verifyFilter]}</SectionLabel>
+          <ul className="mt-3 flex flex-wrap gap-1.5">
+            {matching.map((n) => (
+              <li key={n.id}>
+                <button
+                  type="button"
+                  onClick={() => select(n.id)}
+                  className="inline-flex min-h-11 items-center gap-1.5 rounded-full px-3 text-xs font-medium holo-quiet text-ink"
+                >
+                  <span
+                    className="h-1.5 w-1.5 rounded-full"
+                    style={{ background: VERIFY_TINT[n.verify] }}
+                  />
+                  {n.name}
+                </button>
+              </li>
+            ))}
+          </ul>
         </Holo>
 
         <Holo className="p-4">
-          <SectionLabel>Calidad de render</SectionLabel>
-          <div className="mt-3 grid grid-cols-2 gap-2">
-            <HoloButton active={quality === "alta"} onClick={() => setQuality("alta")} className="min-h-11">
-              Alta
-            </HoloButton>
-            <HoloButton active={quality === "media"} onClick={() => setQuality("media")} className="min-h-11">
-              Media
-            </HoloButton>
-          </div>
-        </Holo>
-
-        <div className="grid grid-cols-1 gap-2">
-          <GlossaryButton className="min-h-12" />
-          <HoloButton
-            className="min-h-12"
-            onClick={() => {
-              setQuery("");
-              setTypeFilter("all");
-              select(null);
-            }}
-          >
-            Restablecer filtros
-          </HoloButton>
-          <HoloButton className="min-h-12" onClick={replayPortal}>
-            <RotateCcw className="h-4 w-4" />
-            Volver a la portada
-          </HoloButton>
-        </div>
-
-        <Holo quiet className="p-4">
-          <p className="text-sm leading-relaxed text-muted">
-            WAIPL Graph es una obra inmersiva de Will-AI Project Lab. El umbral público es{" "}
-            <a href={APEX_URL} className="text-gold underline-offset-2 hover:underline">
-              waipl.dev
-            </a>
-            ; este explorador es el territorio Graphy.
-            Las palabras subrayadas abren el glosario.
+          <SectionLabel>Por círculo</SectionLabel>
+          <p className="mt-1 text-xs leading-relaxed text-muted">
+            Cada círculo responde distinto. Ábrelo.
           </p>
+          <ul className="mt-3 flex flex-col gap-2">
+            {TYPES.map((t) => {
+              const nodes = NODES.filter((n) => n.type === t);
+              const total = nodes.length || 1;
+              const mix = LENSES.map((k) => ({
+                k,
+                n: nodes.filter((n) => n.verify === k).length,
+              }));
+              const open = openCircle === t;
+              const profile = CIRCLE_VERIFY[t];
+              return (
+                <li key={t} className="rounded-xl holo-quiet p-3">
+                  <button
+                    type="button"
+                    onClick={() => {
+                      setOpenCircle(open ? null : t);
+                      setTypeFilter(open && typeFilter === t ? "all" : t);
+                    }}
+                    className="flex min-h-11 w-full items-center gap-3 text-left"
+                  >
+                    <span
+                      className="h-2.5 w-2.5 shrink-0 rounded-full"
+                      style={{ background: TYPE_TINT[t] }}
+                    />
+                    <span className="min-w-0 flex-1">
+                      <span className="block text-sm font-medium text-ink">{TYPE_LABEL[t]}</span>
+                      <span className="mt-1 flex h-1.5 overflow-hidden rounded-full bg-fog">
+                        {mix.map((m) =>
+                          m.n ? (
+                            <span
+                              key={m.k}
+                              className="h-full"
+                              style={{
+                                width: `${(m.n / total) * 100}%`,
+                                background: VERIFY_TINT[m.k],
+                              }}
+                            />
+                          ) : null,
+                        )}
+                      </span>
+                    </span>
+                  </button>
+                  {open ? (
+                    <dl className="mt-3 space-y-2.5 border-t border-ink/10 pt-3">
+                      {LENSES.map((k) => (
+                        <div key={k}>
+                          <dt className="flex items-center gap-2 text-xs font-medium uppercase tracking-wider text-muted">
+                            <span
+                              className="h-1.5 w-1.5 rounded-full"
+                              style={{ background: VERIFY_TINT[k] }}
+                            />
+                            {VERIFY_LABEL[k]}
+                          </dt>
+                          <dd className="mt-1 text-sm leading-relaxed text-ink/85">{profile[k]}</dd>
+                        </div>
+                      ))}
+                    </dl>
+                  ) : null}
+                </li>
+              );
+            })}
+          </ul>
         </Holo>
       </div>
     </PanelFrame>
-  );
-}
-
-function ToggleRow({
-  label,
-  hint,
-  on,
-  onClick,
-  icon: Icon,
-}: {
-  label: string;
-  hint: string;
-  on: boolean;
-  onClick: () => void;
-  icon?: typeof Eye;
-}) {
-  return (
-    <button
-      type="button"
-      onClick={onClick}
-      className="flex min-h-14 w-full items-center justify-between gap-3 px-3 py-2 text-left"
-    >
-      <span>
-        <span className="flex items-center gap-2 text-sm font-medium text-ink">
-          {Icon ? <Icon className="h-4 w-4" /> : null}
-          {label}
-        </span>
-        <span className="mt-0.5 block text-xs text-muted">{hint}</span>
-      </span>
-      <span
-        className={cn(
-          "relative h-7 w-12 shrink-0 rounded-full transition-colors",
-          on ? "bg-gold/80" : "bg-ink/15",
-        )}
-      >
-        <span
-          className={cn(
-            "absolute top-0.5 h-6 w-6 rounded-full bg-fog shadow-sm transition-transform",
-            on ? "translate-x-5" : "translate-x-0.5",
-          )}
-        />
-      </span>
-    </button>
+      <NodePanel />
+    </>
   );
 }

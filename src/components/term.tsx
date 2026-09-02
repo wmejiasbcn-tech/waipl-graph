@@ -1,5 +1,6 @@
 import type { ButtonHTMLAttributes } from "react";
 import { useEco } from "@/lib/store";
+import { splitGlossary } from "@/lib/glossary";
 import { cn } from "@/lib/cn";
 
 export function Term({
@@ -19,7 +20,7 @@ export function Term({
         openGlossary(id);
       }}
       className={cn(
-        "inline underline decoration-gold/50 decoration-dotted underline-offset-4 hover:decoration-gold",
+        "inline cursor-pointer bg-transparent p-0 font-inherit text-inherit underline decoration-gold/55 decoration-dotted underline-offset-4 hover:decoration-gold",
         className,
       )}
     >
@@ -27,3 +28,22 @@ export function Term({
     </button>
   );
 }
+
+export function LinkedText({ text, className }: { text: string; className?: string }) {
+  const parts = splitGlossary(text);
+  if (!parts.length) return null;
+  return (
+    <span className={className}>
+      {parts.map((p, i) =>
+        p.id ? (
+          <Term key={`${p.id}-${i}`} id={p.id}>
+            {p.text}
+          </Term>
+        ) : (
+          <span key={i}>{p.text}</span>
+        ),
+      )}
+    </span>
+  );
+}
+
