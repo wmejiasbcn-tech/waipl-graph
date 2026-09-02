@@ -8,7 +8,8 @@ export type NodeType =
   | "hardware"
   | "movil"
   | "trancita"
-  | "estructura";
+  | "estructura"
+  | "sinapsis";
 
 export type VerifyKind = "ejecutar" | "contrastar" | "mapa";
 
@@ -47,6 +48,7 @@ export const TYPE_LABEL: Record<NodeType, string> = {
   movil: "Nodo Móvil",
   trancita: "Transita entre Vórtice/Cinturón de Kuiper",
   estructura: "Estructura",
+  sinapsis: "Sinapsis comunicacional",
 };
 
 export const TYPE_TINT: Record<NodeType, string> = {
@@ -60,6 +62,7 @@ export const TYPE_TINT: Record<NodeType, string> = {
   movil: "#F0A04A",
   trancita: "#14C4B0",
   estructura: "#7B6CFF",
+  sinapsis: "#C8D8EC",
 };
 
 export const VERIFY_LABEL: Record<VerifyKind, string> = {
@@ -135,6 +138,11 @@ export const CIRCLE_VERIFY: Record<
     contrastar: "Cumplimiento, verdad, operación. Criterio sobre el sistema.",
     mapa: "La estructura que sostiene el funcionamiento del laboratorio.",
   },
+  sinapsis: {
+    ejecutar: "La transmisión llega o no. El canal no se duplica, o se duplica.",
+    contrastar: "Si lo que llega es lo que se quiso decir. Eso se mira, no se corre.",
+    mapa: "Emily une a Carla y a Graphy: el puente entre mente y mapa.",
+  },
   borde: {
     ejecutar: "Flujos entre herramientas. Corren o fallan.",
     contrastar: "Casi nada: el borde no opina, conecta.",
@@ -145,6 +153,7 @@ export const CIRCLE_VERIFY: Record<
 const VERIFY_BY_ID: Record<string, VerifyKind> = {
   waipl: "mapa",
   graphy: "mapa",
+  emily: "contrastar",
   elitebook: "ejecutar",
   movil: "ejecutar",
   william: "contrastar",
@@ -269,6 +278,15 @@ export const NODES: GraphNode[] = [
     "Lo que se puede ver del universo: el explorador inmersivo público.",
     "Transforma cualquier repositorio de código, documentos y archivos multimedia en un grafo de conocimiento persistente y consultable, su objetivo es servir de mapa o plano arquitectónico, de forma que un visitante recorre el ecosistema sin entrar en su interior, permite, además que las IA o nodos comprenda proyectos enteros de forma instantánea sin necesidad de leer archivo por archivo. Todo ello hace que Graphy se convierta en el Sistema Nervioso Central de todo el ecosistema WAIPL",
     "Graphify, herramienta de código abierto (licencia Apache-2.0)",
+  ),
+  entry(
+    "emily",
+    "Emily",
+    "sinapsis",
+    [1.62, 1.08, 1.32],
+    0.62,
+    "Puente entre mente y SNC, canal de transmisión y auditoría.",
+    "Arco de energía blanca-plateada que une Carla y Graphy, con partículas de datos suspendidas.",
   ),
   entry(
     "william",
@@ -726,6 +744,7 @@ export const EDGES: GraphEdge[] = [
   { source: "elitebook", target: "waipl", kind: "nucleo" },
   { source: "movil", target: "waipl", kind: "nucleo" },
   { source: "graphy", target: "waipl", kind: "protocolo" },
+  { source: "emily", target: "waipl", kind: "protocolo" },
   { source: "gpai", target: "waipl", kind: "flujo" },
   ...NUCLEO_IDS.map((id) => ({ source: id, target: "waipl", kind: "nucleo" as const })),
   ...VORTICE_IDS.map((id) => ({ source: id, target: "waipl", kind: "flujo" as const })),
@@ -734,6 +753,8 @@ export const EDGES: GraphEdge[] = [
   { source: "n8n", target: "waipl", kind: "flujo" },
   { source: "william", target: "elitebook", kind: "relato" },
   { source: "graphy", target: "elitebook", kind: "relato" },
+  { source: "emily", target: "carla", kind: "protocolo" },
+  { source: "emily", target: "graphy", kind: "protocolo" },
   { source: "movil", target: "elitebook", kind: "relato" },
 ];
 
@@ -759,6 +780,7 @@ export const COMMUNITIES = [
   "Nodo central",
   "Nodo Móvil",
   "Manifestación",
+  "Sinapsis comunicacional",
   "Núcleo",
   "Vórtice",
   "Transita entre Vórtice/Cinturón de Kuiper",

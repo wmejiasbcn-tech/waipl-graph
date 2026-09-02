@@ -5,6 +5,7 @@ export const TYPE_HINT: Record<string, string> = {
   kuiper: "Colaboran y producen con regularidad.",
   borde: "Colaboración puntual desde el borde exterior.",
   manifestacion: "Lo que se puede ver del universo WAIPL.",
+  sinapsis: "El puente entre Carla y Graphy. Transmisión y auditoría.",
   hardware: "Único nodo central. El hardware que sostiene el laboratorio.",
   movil: "El Xiaomi. Hardware de gobernanza, junto al Nodo Central.",
   trancita: "El paso entre el vórtice y el cinturón de Kuiper.",
@@ -66,6 +67,12 @@ export const GLOSSARY: GlossaryEntry[] = [
     term: "Manifestación",
     aliases: ["manifestación", "manifestacion"],
     def: "Lo que se puede ver del universo sin entrar en su interior. En este mapa, esa manifestación es Graphy.",
+  },
+  {
+    id: "sinapsis",
+    term: "Sinapsis",
+    aliases: ["sinapsis", "Sinapsis"],
+    def: "La conexión entre dos presencias. En este mapa, Emily es la sinapsis comunicacional: el puente entre Carla y Graphy.",
   },
   {
     id: "trancita",
@@ -346,7 +353,7 @@ export const GLOSSARY: GlossaryEntry[] = [
   {
     id: "snc",
     term: "Sistema Nervioso Central",
-    aliases: ["Sistema Nervioso Central"],
+    aliases: ["Sistema Nervioso Central", "SNC", "snc"],
     def: "Metáfora: Graphy como el mapa que hace visible el conjunto y permite recorrerlo, igual que el sistema nervioso conecta el organismo.",
   },
   {

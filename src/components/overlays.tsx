@@ -28,6 +28,7 @@ const TYPES: NodeType[] = [
   "hardware",
   "movil",
   "manifestacion",
+  "sinapsis",
   "nucleo",
   "vortice",
   "trancita",
