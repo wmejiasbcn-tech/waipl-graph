@@ -27,6 +27,7 @@ const TYPES: NodeType[] = [
   "universo",
   "hardware",
   "movil",
+  "cuerpo",
   "manifestacion",
   "sinapsis",
   "nucleo",

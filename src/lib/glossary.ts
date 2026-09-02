@@ -6,6 +6,7 @@ export const TYPE_HINT: Record<string, string> = {
   borde: "Colaboración puntual desde el borde exterior.",
   manifestacion: "Lo que se puede ver del universo WAIPL.",
   sinapsis: "El puente entre Carla y Graphy. Transmisión y auditoría.",
+  cuerpo: "Ollama. Donde los modelos se ejecutan en local.",
   hardware: "Único nodo central. El hardware que sostiene el laboratorio.",
   movil: "El Xiaomi. Hardware de gobernanza, junto al Nodo Central.",
   trancita: "El paso entre el vórtice y el cinturón de Kuiper.",
@@ -73,6 +74,18 @@ export const GLOSSARY: GlossaryEntry[] = [
     term: "Sinapsis",
     aliases: ["sinapsis", "Sinapsis"],
     def: "La conexión entre dos presencias. En este mapa, Emily es la sinapsis comunicacional: el puente entre Carla y Graphy.",
+  },
+  {
+    id: "cuerpo-fisico",
+    term: "Cuerpo físico",
+    aliases: ["cuerpo físico", "Cuerpo físico", "cuerpo fisico"],
+    def: "La materia donde corren los modelos. En este mapa, Ollama: ejecución local, no una nube lejana.",
+  },
+  {
+    id: "ollama",
+    term: "Ollama",
+    aliases: ["Ollama", "ollama"],
+    def: "Infraestructura de ejecución local. Soporte material de los modelos. El cuerpo físico del laboratorio.",
   },
   {
     id: "trancita",
