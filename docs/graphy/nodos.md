@@ -49,3 +49,9 @@ El texto de función, importancia y plataforma no se copia aquí para no desviar
 | 42 | Yata | Estructura |
 | 43 | n8n | Borde exterior |
 | 44 | WILLIAM-SCY-O1 | Cinturón de Kuiper |
+
+## Núcleo 11+1
+
+Filas 5–16. Once inteligencias + William, soberano biológico. Esa geometría es la del [deck holográfico de los seis principios](../publicacion/principios-inteligencia-hibrida.md).
+
+Los 44 son el registro completo. El 11+1 no se expande. Graphy, en el deck, es la red (fila 4 de esta tabla: Manifestación), no un duodécimo anillo.
