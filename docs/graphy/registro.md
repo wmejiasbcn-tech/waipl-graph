@@ -13,7 +13,7 @@ Explorador inmersivo público. El visitante recorre nodos sin entrar en el inter
 
 | Decisión | Estado |
 |---|---|
-| 45 nodos. Emily: sinapsis entre Carla y Graphy. Vár e Yata en Estructura | Hecho. Fuente: tabla oficial |
+| 45 nodos. Emily: sinapsis entre Carla y Graphy. Arquitectura operativa en la ficha, texto exacto | Hecho. Fuente: tabla oficial + arquitectura del Soberano |
 | Texto de fichas = tabla, letra por letra | Hecho. `src/lib/graph-data.ts` |
 | Portada original: blasón, Ecosistema Digital Inmersivo, Entrar | Hecha. `src/components/portal-view.tsx` |
 | Entrar lleva al mapa, un toque | Hecho |
