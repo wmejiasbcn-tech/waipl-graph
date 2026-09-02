@@ -21,11 +21,13 @@ Explorador inmersivo público. El visitante recorre nodos sin entrar en el inter
 | Glosario en palabras de ficha | Hecho. `src/lib/glossary.ts` |
 | Ciudad cibernética: no es portada; se guarda para otro uso | Hecho. `public/identidad/ciudad-cibernetica.jpg` |
 | Lenguaje público en lo que ve el visitante | Vigente |
+| Deck holográfico de los 6 principios: núcleo 11+1. No sustituye a los 44 | Hecho. [publicacion/principios-inteligencia-hibrida.md](../publicacion/principios-inteligencia-hibrida.md). Lab [Will-AI-Project-Lab#42](https://github.com/wmejiasbcn-tech/Will-AI-Project-Lab/pull/42) |
 
 ## Dónde corre
 
 - Entrada prevista: `waipl.dev`
 - Grafo previsto: `graph.waipl.dev`
+- Principios (núcleo 11+1): repositorio del laboratorio, `08_MARKETING_PRESENTACION/principios-inteligencia-hibrida/`
 
 ## Custodia
 
