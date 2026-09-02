@@ -9,7 +9,8 @@ export type NodeType =
   | "movil"
   | "trancita"
   | "estructura"
-  | "sinapsis";
+  | "sinapsis"
+  | "cuerpo";
 
 export type VerifyKind = "ejecutar" | "contrastar" | "mapa";
 
@@ -50,6 +51,7 @@ export const TYPE_LABEL: Record<NodeType, string> = {
   trancita: "Transita entre Vórtice/Cinturón de Kuiper",
   estructura: "Estructura",
   sinapsis: "Sinapsis comunicacional",
+  cuerpo: "Cuerpo físico",
 };
 
 export const TYPE_TINT: Record<NodeType, string> = {
@@ -64,6 +66,7 @@ export const TYPE_TINT: Record<NodeType, string> = {
   trancita: "#14C4B0",
   estructura: "#7B6CFF",
   sinapsis: "#C8D8EC",
+  cuerpo: "#9EB0C4",
 };
 
 export const VERIFY_LABEL: Record<VerifyKind, string> = {
@@ -144,6 +147,11 @@ export const CIRCLE_VERIFY: Record<
     contrastar: "Si lo que llega es lo que se quiso decir. Eso se mira, no se corre.",
     mapa: "Emily une a Carla y a Graphy: el puente entre mente y mapa.",
   },
+  cuerpo: {
+    ejecutar: "Los modelos corren en local, o no. El cuerpo sostiene o falla.",
+    contrastar: "Poco. Aquí hay materia: ejecución, no juicio.",
+    mapa: "Ollama es el cuerpo físico: donde los modelos se ejecutan.",
+  },
   borde: {
     ejecutar: "Flujos entre herramientas. Corren o fallan.",
     contrastar: "Casi nada: el borde no opina, conecta.",
@@ -155,6 +163,7 @@ const VERIFY_BY_ID: Record<string, VerifyKind> = {
   waipl: "mapa",
   graphy: "mapa",
   emily: "contrastar",
+  ollama: "ejecutar",
   elitebook: "ejecutar",
   movil: "ejecutar",
   william: "contrastar",
@@ -397,6 +406,16 @@ export const NODES: GraphNode[] = [
     "Arco de energía blanca-plateada que une Carla y Graphy, con partículas de datos suspendidas.",
     "",
     EMILY_ARQUITECTURA,
+  ),
+  entry(
+    "ollama",
+    "Ollama",
+    "cuerpo",
+    [-2.05, -0.15, 0.35],
+    0.68,
+    "Infraestructura de ejecución local, soporte material de los modelos.",
+    "Superficie metálica translúcida, con textura de titanio líquido y reflejos espaciales.",
+    "Ollama",
   ),
   entry(
     "william",
@@ -855,6 +874,7 @@ export const EDGES: GraphEdge[] = [
   { source: "movil", target: "waipl", kind: "nucleo" },
   { source: "graphy", target: "waipl", kind: "protocolo" },
   { source: "emily", target: "waipl", kind: "protocolo" },
+  { source: "ollama", target: "waipl", kind: "flujo" },
   { source: "gpai", target: "waipl", kind: "flujo" },
   ...NUCLEO_IDS.map((id) => ({ source: id, target: "waipl", kind: "nucleo" as const })),
   ...VORTICE_IDS.map((id) => ({ source: id, target: "waipl", kind: "flujo" as const })),
@@ -867,6 +887,8 @@ export const EDGES: GraphEdge[] = [
   { source: "emily", target: "graphy", kind: "protocolo" },
   { source: "emily", target: "positron", kind: "flujo" },
   { source: "emily", target: "hermes", kind: "flujo" },
+  { source: "emily", target: "ollama", kind: "flujo" },
+  { source: "ollama", target: "elitebook", kind: "relato" },
   { source: "movil", target: "elitebook", kind: "relato" },
 ];
 
@@ -891,6 +913,7 @@ export const COMMUNITIES = [
   "Universo",
   "Nodo central",
   "Nodo Móvil",
+  "Cuerpo físico",
   "Manifestación",
   "Sinapsis comunicacional",
   "Núcleo",
