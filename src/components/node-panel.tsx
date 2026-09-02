@@ -2,11 +2,24 @@ import { useEffect, useRef, useState } from "react";
 import { Volume2, VolumeX, X } from "lucide-react";
 import { Holo, HoloButton, SectionLabel } from "@/components/holo";
 import { LinkedText } from "@/components/term";
-import { neighborsOf, NODE_MAP, TYPE_LABEL, TYPE_TINT, VERIFY_HINT, VERIFY_LABEL, VERIFY_TINT } from "@/lib/graph-data";
+import {
+  neighborsOf,
+  NODE_MAP,
+  TYPE_LABEL,
+  TYPE_TINT,
+  VERIFY_HINT,
+  VERIFY_LABEL,
+  VERIFY_TINT,
+  type GraphNode,
+} from "@/lib/graph-data";
 import { useEco } from "@/lib/store";
 
+let cachedVoice: SpeechSynthesisVoice | undefined;
+
 function pickVoice(synth: SpeechSynthesis): SpeechSynthesisVoice | undefined {
+  if (cachedVoice) return cachedVoice;
   const voices = synth.getVoices();
+  if (!voices.length) return undefined;
   const score = (v: SpeechSynthesisVoice) => {
     const n = `${v.name} ${v.lang}`.toLowerCase();
     if ((n.includes("google") || n.includes("natural") || n.includes("neural")) && n.includes("es")) return 12;
@@ -16,57 +29,46 @@ function pickVoice(synth: SpeechSynthesis): SpeechSynthesisVoice | undefined {
     if (v.lang.toLowerCase().startsWith("es")) return 5;
     return 0;
   };
-  return [...voices].sort((a, b) => score(b) - score(a))[0];
+  cachedVoice = [...voices].sort((a, b) => score(b) - score(a))[0];
+  return cachedVoice;
 }
 
-function phrasesOf(parts: string[]): string[] {
-  const out: string[] = [];
-  for (const part of parts) {
-    const text = part.trim();
-    if (!text) continue;
-    const bits = text
-      .split(/(?<=[.!?…])\s+/)
-      .map((s) => s.trim())
-      .filter((s) => s.length > 1);
-    if (!bits.length) {
-      out.push(text);
-      continue;
-    }
-    let buf = "";
-    for (const bit of bits) {
-      if (buf && buf.length + bit.length > 280) {
-        out.push(buf);
-        buf = bit;
-      } else {
-        buf = buf ? `${buf} ${bit}` : bit;
-      }
-    }
-    if (buf) out.push(buf);
-  }
-  return out;
+if (typeof window !== "undefined" && window.speechSynthesis) {
+  pickVoice(window.speechSynthesis);
+  window.speechSynthesis.addEventListener("voiceschanged", () => {
+    cachedVoice = undefined;
+    pickVoice(window.speechSynthesis);
+  });
 }
 
-function speakNow(
-  synth: SpeechSynthesis,
-  phrases: string[],
-  onDone: () => void,
-) {
+function spokenOf(node: GraphNode): string {
+  const circle = TYPE_LABEL[node.type];
+  const parts = [`${node.name}.`, `${circle}.`];
+  if (node.platform) parts.push(`Está en ${node.platform}.`);
+  parts.push(node.funcion.trim());
+  parts.push(node.importancia.trim());
+  return parts
+    .join(" ")
+    .replace(/\bSNC\b/g, "sistema nervioso central")
+    .replace(/\s+,/g, ",")
+    .replace(/\s+\./g, ".")
+    .replace(/\.\s*\./g, ".")
+    .replace(/\s+/g, " ")
+    .trim();
+}
+
+function speakNow(synth: SpeechSynthesis, text: string, onDone: () => void) {
   synth.cancel();
   const voice = pickVoice(synth);
-  const last = phrases.length - 1;
-  phrases.forEach((text, i) => {
-    const u = new SpeechSynthesisUtterance(text);
-    u.lang = voice?.lang || "es-ES";
-    if (voice) u.voice = voice;
-    u.rate = 0.94;
-    u.pitch = 0.98;
-    u.volume = 1;
-    if (i === last) {
-      u.onend = onDone;
-      u.onerror = onDone;
-    }
-    synth.speak(u);
-  });
+  const u = new SpeechSynthesisUtterance(text);
+  u.lang = voice?.lang || "es-ES";
+  if (voice) u.voice = voice;
+  u.rate = 1;
+  u.pitch = 1.04;
+  u.volume = 1;
+  u.onend = onDone;
+  u.onerror = onDone;
+  synth.speak(u);
   try {
     synth.resume();
   } catch {
@@ -80,6 +82,7 @@ export function NodePanel() {
   const node = selectedId ? NODE_MAP[selectedId] : null;
   const [speaking, setSpeaking] = useState(false);
   const run = useRef({ cancelled: false });
+  const lastSpeak = useRef(0);
 
   const stop = () => {
     run.current.cancelled = true;
@@ -105,20 +108,20 @@ export function NodePanel() {
   const tint = TYPE_TINT[node.type];
 
   const speak = () => {
+    const now = performance.now();
+    if (now - lastSpeak.current < 280) return;
+    lastSpeak.current = now;
     const synth = window.speechSynthesis;
     if (!synth) return;
     if (speaking) {
       stop();
       return;
     }
+    const text = spokenOf(node);
+    if (!text) return;
     run.current = { cancelled: false };
-    const intro = [node.name, TYPE_LABEL[node.type], node.platform ? `Plataforma: ${node.platform}` : ""]
-      .filter(Boolean)
-      .join(". ");
-    const phrases = phrasesOf([intro, node.funcion, node.importancia, node.arquitectura]);
-    if (!phrases.length) return;
     setSpeaking(true);
-    speakNow(synth, phrases, () => {
+    speakNow(synth, text, () => {
       if (!run.current.cancelled) setSpeaking(false);
     });
   };
@@ -127,7 +130,7 @@ export function NodePanel() {
     <Holo
       strong
       data-testid="ficha"
-      className="pointer-events-auto absolute inset-x-3 bottom-32 z-40 flex max-h-[62dvh] w-auto flex-col overflow-hidden p-0 md:inset-x-auto md:bottom-8 md:right-24 md:max-h-[72dvh] md:w-[22rem]"
+      className="pointer-events-auto absolute inset-x-3 bottom-32 z-40 flex max-h-[46dvh] w-auto flex-col overflow-hidden p-0 md:inset-x-auto md:bottom-8 md:right-24 md:w-[22rem]"
     >
       <div className="flex items-start justify-between gap-3 px-4 pt-4">
         <div>
@@ -183,14 +186,6 @@ export function NodePanel() {
               <LinkedText text={node.importancia} />
             </p>
           </div>
-          {node.arquitectura ? (
-            <div>
-              <SectionLabel>Arquitectura operativa</SectionLabel>
-              <p className="mt-1 whitespace-pre-wrap text-sm leading-relaxed text-ink/85">
-                <LinkedText text={node.arquitectura} />
-              </p>
-            </div>
-          ) : null}
         </div>
 
         <div className="mt-3 pb-1">
@@ -213,7 +208,13 @@ export function NodePanel() {
       </div>
 
       <div className="flex flex-wrap gap-2 px-4 py-3">
-        <HoloButton onClick={speak} className="min-h-11 flex-1 text-sm">
+        <HoloButton
+          onPointerDown={(e) => {
+            e.preventDefault();
+            speak();
+          }}
+          className="min-h-11 flex-1 text-sm"
+        >
           {speaking ? <VolumeX className="h-4 w-4" /> : <Volume2 className="h-4 w-4" />}
           {speaking ? "Silenciar" : "Leer en voz alta"}
         </HoloButton>
