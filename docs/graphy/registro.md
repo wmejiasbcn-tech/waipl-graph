@@ -22,7 +22,8 @@ Explorador inmersivo público. El visitante recorre nodos sin entrar en el inter
 | Glosario en palabras de ficha | Hecho. `src/lib/glossary.ts` |
 | Ciudad cibernética: no es portada; se guarda para otro uso | Hecho. `public/identidad/ciudad-cibernetica.jpg` |
 | Lenguaje público en lo que ve el visitante | Vigente |
-| Deck holográfico de los 6 principios: núcleo 11+1. Emily es el arco, no un anillo. No sustituye a los 46 | Hecho. [publicacion/principios-inteligencia-hibrida.md](../publicacion/principios-inteligencia-hibrida.md). Lab [Will-AI-Project-Lab#42](https://github.com/wmejiasbcn-tech/Will-AI-Project-Lab/pull/42) |
+| Una sola ventana pública. Graphy no se tapa con láminas | Hecho. Skill ventanas |
+| Presentaciones: Graphy inmersivo; Gamma/Canva decks; HeyGen vídeo | Hecho. Skill presentaciones. Inventario: [conectores.md](conectores.md) |
 
 ## Dónde corre
 
