@@ -15,7 +15,9 @@ Este directorio indexa lo concebido, registrado y trazable. El código que lo ej
 | [publicacion/estrategia-redes.md](publicacion/estrategia-redes.md) | Orden de salida: Gerardo, círculo, X, LinkedIn |
 | [publicacion/x.md](publicacion/x.md) | Hashtags y horas para X |
 | [publicacion/linkedin.md](publicacion/linkedin.md) | Estrategia y piezas de LinkedIn |
-| [identidad/ciudad-cibernetica.md](identidad/ciudad-cibernetica.md) | Imagen de ciudad: archivo y reutilización |
+| [graphy/conectores.md](graphy/conectores.md) | Inventario de conectores: qué se puede y qué no |
+| [graphy/skills-ventanas.md](graphy/skills-ventanas.md) | Skill: una ventana pública |
+| [graphy/skills-presentaciones.md](graphy/skills-presentaciones.md) | Skill: Graphy, decks, vídeo |
 
 Fuente de las fichas: tabla oficial del Soberano (septiembre 2026), 46 nodos, texto exacto.
 
