@@ -26,8 +26,9 @@ Explorador inmersivo público. El visitante recorre nodos sin entrar en el inter
 
 ## Dónde corre
 
-- Entrada prevista: `waipl.dev`
-- Grafo previsto: `graph.waipl.dev`
+- En el mundo: enlace publicado (cualquier navegador, sin cuenta).  
+- Entrada prevista: `waipl.dev`  
+- Grafo previsto: `graph.waipl.dev` — hoy aún apunta a la carta antigua; Graphy entra ahí cuando el despliegue de este repositorio esté activo.  
 - Principios (núcleo 11+1): repositorio del laboratorio, `08_MARKETING_PRESENTACION/principios-inteligencia-hibrida/`
 
 ## Custodia
