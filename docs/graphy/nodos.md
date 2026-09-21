@@ -1,4 +1,4 @@
-# Índice de nodos — 46
+# Índice de nodos — 47
 
 Fuente: tabla oficial del Soberano, septiembre 2026. Completos.  
 El texto de función, importancia y plataforma no se copia aquí para no desviar: está en `src/lib/graph-data.ts`.
@@ -51,9 +51,10 @@ El texto de función, importancia y plataforma no se copia aquí para no desviar
 | 44 | Yata | Estructura |
 | 45 | n8n | Borde exterior |
 | 46 | WILLIAM-SCY-O1 | Cinturón de Kuiper |
+| 47 | Sentinel | Estructura |
 
 ## Núcleo 11+1
 
 Filas 7–18. Once inteligencias + William, soberano biológico. Esa geometría es la del [deck holográfico de los seis principios](../publicacion/principios-inteligencia-hibrida.md).
 
-Los 46 son el registro completo. El 11+1 no se expande. Graphy es la red (fila 4: Manifestación). Emily es la sinapsis (fila 5). Ollama es el cuerpo físico (fila 6). Ninguno de los tres es un duodécimo anillo del núcleo.
+Los 47 son el registro completo. El 11+1 no se expande. Graphy es la red (fila 4: Manifestación). Emily es la sinapsis (fila 5). Ollama es el cuerpo físico (fila 6). Sentinel es el nodo 47 y pertenece a Estructura. Ninguno de los tres primeros es un duodécimo anillo del núcleo.

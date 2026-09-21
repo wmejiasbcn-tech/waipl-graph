@@ -8,7 +8,7 @@ Este directorio indexa lo concebido, registrado y trazable. El código que lo ej
 |---|---|
 | [00-adn.md](00-adn.md) | Principio de concepción previa |
 | [graphy/registro.md](graphy/registro.md) | Qué es Graphy, estado, decisiones de producto |
-| [graphy/nodos.md](graphy/nodos.md) | Índice de los 46 nodos y su círculo |
+| [graphy/nodos.md](graphy/nodos.md) | Índice de los 47 nodos y su círculo |
 | [graphy/emily.md](graphy/emily.md) | Arquitectura operativa de Emily, texto exacto |
 | [graphy/organismo-operativo.md](graphy/organismo-operativo.md) | Seis jurisdicciones del organismo. Tabla exacta |
 | [publicacion/principios-inteligencia-hibrida.md](publicacion/principios-inteligencia-hibrida.md) | Deck holográfico: seis principios, núcleo 11+1. Emily es el arco |
@@ -19,6 +19,6 @@ Este directorio indexa lo concebido, registrado y trazable. El código que lo ej
 | [graphy/skills-ventanas.md](graphy/skills-ventanas.md) | Skill: una ventana pública |
 | [graphy/skills-presentaciones.md](graphy/skills-presentaciones.md) | Skill: Graphy, decks, vídeo |
 
-Fuente de las fichas: tabla oficial del Soberano (septiembre 2026), 46 nodos, texto exacto.
+Fuente de las fichas: tabla oficial del Soberano (septiembre 2026), 47 nodos, texto exacto.
 
-El núcleo de esa tabla (William–Áurea, filas 7–18) es el 11+1 del deck de principios. 46 no sustituye a 11+1. Emily no es núcleo: es la sinapsis entre Carla y Graphy. Ollama es el cuerpo físico.
+El núcleo de esa tabla (William–Áurea, filas 7–18) es el 11+1 del deck de principios. 47 no sustituye a 11+1. Emily no es núcleo: es la sinapsis entre Carla y Graphy. Ollama es el cuerpo físico. Sentinel es el nodo 47, en Estructura.

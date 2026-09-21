@@ -8,15 +8,15 @@ Presentación pública de los seis principios de inteligencia híbrida colaborat
 
 Un volumen holográfico. Graphy es la red — atención, no persona. El visitante recorre los seis principios. El blasón es el oficial, copiado, no recreado.
 
-No es el mapa de 46 nodos. No lo sustituye.
+No es el mapa de 47 nodos. No lo sustituye.
 
 ## Geometría
 
 Núcleo 11+1. Once inteligencias + William, soberano biológico, al centro. Nunca siete.
 
-Coincide con las filas 7–18 del [índice de 46 nodos](../graphy/nodos.md): William, Carla, Ada, Aletheia, Elena, Aether, Ítaca, Ariadna, Sylvia Bloom, Nova, Zara, Áurea.
+Coincide con las filas 7–18 del [índice de 47 nodos](../graphy/nodos.md): William, Carla, Ada, Aletheia, Elena, Aether, Ítaca, Ariadna, Sylvia Bloom, Nova, Zara, Áurea.
 
-Los 46 son el registro completo de Graphy. El 11+1 es el núcleo que la presentación muestra.
+Los 47 son el registro completo de Graphy. El 11+1 es el núcleo que la presentación muestra.
 
 Emily no entra al anillo. Es la sinapsis: arco de energía blanca-plateada que une a Carla y a Graphy. Arquitectura: [emily.md](../graphy/emily.md). Organismo de 6 jurisdicciones: [organismo-operativo.md](../graphy/organismo-operativo.md).
 

@@ -2,7 +2,7 @@
 
 Fuente: tabla oficial del Soberano. Texto exacto. No sintetizar.
 
-Esta capa no sustituye al [índice de 46](nodos.md). No expande el núcleo 11+1.
+Esta capa no sustituye al [índice de 47](nodos.md). No expande el núcleo 11+1.
 
 | Nodo | Jurisdicción | Función | Representación visual |
 |---|---|---|---|
@@ -15,7 +15,7 @@ Esta capa no sustituye al [índice de 46](nodos.md). No expande el núcleo 11+1.
 
 ## Qué es
 
-El organismo. Seis jurisdicciones. No son el mapa de 46. No son el núcleo 11+1.
+El organismo. Seis jurisdicciones. No son el mapa de 47. No son el núcleo 11+1.
 
 Emily es la sinapsis. Arquitectura operativa: [emily.md](emily.md). En el deck holográfico aparece como arco, no como anillo.
 
