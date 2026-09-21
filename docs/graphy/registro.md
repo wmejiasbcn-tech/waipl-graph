@@ -13,9 +13,9 @@ Explorador inmersivo público. El visitante recorre nodos sin entrar en el inter
 
 | Decisión | Estado |
 |---|---|
-| 47 nodos. Emily: sinapsis. Ollama: cuerpo físico. Sentinel: nodo 47, Estructura. Arquitectura de Emily en la ficha, texto exacto | Actualizado. Fuente: tabla oficial + arquitectura del Soberano |
+| 47 nodos. William–Áurea = núcleo 11+1 (filas 5–16). Emily = 45 Estructura. Ollama = 46 Estructura. Sentinel = 47 Estructura. | Actualizado. Fuente única: `SENTINEL/docs/governance/tabla_47_nodos.csv` |
 | Organismo operativo: 6 jurisdicciones. Tabla exacta | Hecho. [organismo-operativo.md](organismo-operativo.md) |
-| Texto de fichas = tabla, letra por letra | Hecho. `src/lib/graph-data.ts` |
+| Texto de fichas = tabla canónica | Hecho. `src/lib/graph-data.ts` |
 | Portada original: blasón, Ecosistema Digital Inmersivo, Entrar | Hecha. `src/components/portal-view.tsx` |
 | Entrar lleva al mapa, un toque | Hecho |
 | Sin cintas de color sobre el universo | Hecho |

@@ -7,6 +7,6 @@ Explorador inmersivo del ecosistema Will-AI Project Lab.
 
 Registro, ADN e índice de nodos: [docs/](docs/README.md).
 
-47 nodos. El núcleo (filas 7–18) es el 11+1 del [deck de principios](docs/publicacion/principios-inteligencia-hibrida.md). Ese deck vive en [`Will-AI-Project-Lab`](https://github.com/wmejiasbcn-tech/Will-AI-Project-Lab/tree/main/08_MARKETING_PRESENTACION/principios-inteligencia-hibrida). No se sustituyen.
+47 nodos. El núcleo canónico (filas 5–16) es el 11+1 del [deck de principios](docs/publicacion/principios-inteligencia-hibrida.md). Ese deck vive en [`Will-AI-Project-Lab`](https://github.com/wmejiasbcn-tech/Will-AI-Project-Lab/tree/main/08_MARKETING_PRESENTACION/principios-inteligencia-hibrida). No se sustituyen.
 
-Emily es la sinapsis (fila 5): une a Carla y a Graphy. En el holograma es un arco, no un anillo. Ollama es el cuerpo físico (fila 6). Sentinel es el nodo 47, en Estructura.
+Emily es el nodo 45, Estructura. Ollama es el nodo 46, Estructura. Sentinel es el nodo 47, Estructura.

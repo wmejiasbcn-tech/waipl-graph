@@ -17,7 +17,7 @@ Esta capa no sustituye al [índice de 47](nodos.md). No expande el núcleo 11+1.
 
 El organismo. Seis jurisdicciones. No son el mapa de 47. No son el núcleo 11+1.
 
-Emily es la sinapsis. Arquitectura operativa: [emily.md](emily.md). En el deck holográfico aparece como arco, no como anillo.
+La tabla de jurisdicciones conserva las funciones operativas descritas aquí. La clasificación canónica de nodos es independiente: Emily es el nodo 45, Estructura; Ollama es el nodo 46, Estructura.
 
 ## Custodia
 
