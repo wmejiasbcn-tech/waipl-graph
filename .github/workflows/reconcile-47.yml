@@ -1,0 +1,132 @@
+name: reconcile-47
+
+on:
+  push:
+    branches: [reconcile-47-isomorphic-sentinel]
+
+permissions:
+  contents: write
+
+jobs:
+  reconcile:
+    if: github.event.head_commit.message != 'chore(graph): reconcile canonical 47 nodes'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          fetch-depth: 0
+
+      - name: Reconcile against SENTINEL canonical CSV
+        env:
+          EXPECTED_SHA256: 7ea474a9ff153420b01ffc2610fcc41700857994e4ff17814cb708f314b83ab4
+        run: |
+          python - <<'PY'
+          import csv, hashlib, json, math, re, urllib.request
+          from pathlib import Path
+
+          csv_url = 'https://raw.githubusercontent.com/wmejiasbcn-tech/SENTINEL/main/docs/governance/tabla_47_nodos.csv'
+          data = urllib.request.urlopen(csv_url).read()
+          actual = hashlib.sha256(data).hexdigest()
+          expected = __import__('os').environ['EXPECTED_SHA256']
+          if actual != expected:
+              raise SystemExit(f'Canonical CSV SHA256 mismatch: {actual} != {expected}')
+
+          rows = list(csv.DictReader(data.decode('utf-8').splitlines()))
+          if len(rows) != 47 or [int(r['#']) for r in rows] != list(range(1,48)):
+              raise SystemExit('Canonical CSV is not exactly 47 ordered rows')
+
+          circle_to_type = {
+              'Universo':'universo', 'Nodo central':'hardware', 'Nodo Móvil':'movil',
+              'Manifestación':'manifestacion', 'Núcleo':'nucleo', 'Vórtice':'vortice',
+              'Transita entre Vórtice/Cinturón de Kuiper':'trancita',
+              'Cinturón de Kuiper':'kuiper', 'Estructura':'estructura', 'Borde exterior':'borde'
+          }
+          ids = {
+              'WAIPL':'waipl','Nodo Central':'elitebook','Nodo Móvil':'movil','Graphy':'graphy',
+              'William':'william','Carla':'carla','Ada':'ada','Aletheia':'aletheia','Elena':'elena',
+              'Aether':'aether','Ítaca':'itaca','Ariadna':'ariadna','Sylvia Bloom':'sylvia','Nova':'nova',
+              'Zara':'zara','Áurea':'aurea','Perplexity':'perplexity','Gemini-Notebook':'gemini-notebook',
+              'Neo':'neo','Nauta':'nauta','Nexus':'nexus','Qwen 3.8 Max':'qwen','GPAI':'gpai',
+              'Kimi K3':'kimi','Mistral':'mistral','Atlas':'atlas','Antigravity':'antigravity','Cursor':'cursor',
+              'Visual Studio Code':'vscode','Z.ai':'zai','AutoClaw':'auto-claw','Hermes':'hermes','Positrón':'positron',
+              'Heimdall':'heimdall','Codd':'codd','Argos':'argos','Aegis':'aegis','Will App':'will-app',
+              'Kairos':'kairos','Dike':'dike','Vár':'var','Yata':'yata','n8n':'n8n',
+              'WILLIAM-SCY-O1':'william-scy','Emily':'emily','Ollama':'ollama','Sentinel':'sentinel'
+          }
+
+          def ring(count, radius, y, phase):
+              out=[]
+              for i in range(count):
+                  a=(i/count)*math.pi*2+phase+((i*13)%5)*0.045
+                  r=radius*(0.86+((i*19)%9)*0.03)
+                  yy=y+math.sin(i*1.87+phase)*0.52+((i%4)-1.5)*0.18
+                  out.append((math.cos(a)*r, yy, math.sin(a)*r))
+              return out
+
+          positions={}
+          nuc=ring(12,2.85,0.55,0.18); vor=ring(6,4.65,0.15,0.4); kui=ring(9,6.35,-0.2,0.08); est=ring(11,7.55,0.4,0.55)
+          for i,n in enumerate(['William','Carla','Ada','Aletheia','Elena','Aether','Ítaca','Ariadna','Sylvia Bloom','Nova','Zara','Áurea']): positions[n]=nuc[i]
+          for i,n in enumerate(['Perplexity','Gemini-Notebook','Neo','Nauta','Nexus','Qwen 3.8 Max']): positions[n]=vor[i]
+          for i,n in enumerate(['Kimi K3','Mistral','Atlas','Antigravity','Cursor','Visual Studio Code','Z.ai','AutoClaw','WILLIAM-SCY-O1']): positions[n]=kui[i]
+          for i,n in enumerate(['Hermes','Positrón','Heimdall','Codd','Argos','Aegis','Will App','Kairos','Dike','Vár','Yata']): positions[n]=est[i]
+          positions.update({
+              'WAIPL':(0,0.35,0),'Nodo Central':(-1.55,-0.55,0.95),'Nodo Móvil':(1.45,-0.5,-0.9),
+              'Graphy':(1.55,1.15,0.85),'Emily':(1.62,1.08,1.32),'Ollama':(-2.05,-0.15,0.35),
+              'n8n':(0.4,-0.85,8.55),'Sentinel':(0.0,0.55,8.85)
+          })
+          sizes={r['Nodo']: (1.2 if r['Nodo']=='WAIPL' else 0.98 if r['Nodo']=='Nodo Central' else 0.72 if r['Nodo']=='Nodo Móvil' else 0.74 if r['Nodo']=='Graphy' else 0.68 if r['Nodo']=='Ollama' else 0.62 if r['Nodo']=='Emily' else 0.62 if r['Círculo']=='Núcleo' and r['Nodo']=='William' else 0.58 if r['Círculo']=='Núcleo' else 0.5 if r['Círculo']=='Vórtice' else 0.48 if r['Nodo']=='GPAI' else 0.44 if r['Círculo']=='Cinturón de Kuiper' else 0.42 if r['Círculo']=='Estructura' else 0.4) for r in rows}
+          tint={'universo':'#E8B42A','nucleo':'#F0C43A','vortice':'#1EC8D4','kuiper':'#1DB888','borde':'#4A8EE8','manifestacion':'#E88A32','hardware':'#E07038','movil':'#F0A04A','trancita':'#14C4B0','estructura':'#7B6CFF'}
+          verify={'waipl':'mapa','graphy':'mapa','emily':'contrastar','ollama':'ejecutar','elitebook':'ejecutar','movil':'ejecutar','william':'contrastar','carla':'contrastar','ada':'contrastar','aletheia':'ejecutar','elena':'contrastar','aether':'contrastar','itaca':'contrastar','ariadna':'contrastar','sylvia':'contrastar','nova':'contrastar','zara':'ejecutar','aurea':'contrastar','perplexity':'contrastar','gemini-notebook':'contrastar','neo':'contrastar','nauta':'ejecutar','nexus':'contrastar','qwen':'ejecutar','gpai':'ejecutar','kimi':'contrastar','mistral':'contrastar','atlas':'ejecutar','antigravity':'ejecutar','cursor':'ejecutar','vscode':'ejecutar','zai':'ejecutar','auto-claw':'ejecutar','hermes':'contrastar','positron':'ejecutar','heimdall':'ejecutar','codd':'ejecutar','argos':'ejecutar','aegis':'ejecutar','will-app':'contrastar','kairos':'ejecutar','dike':'contrastar','var':'contrastar','yata':'contrastar','n8n':'ejecutar','william-scy':'mapa','sentinel':'contrastar'}
+
+          def js(s): return json.dumps(s, ensure_ascii=False)
+          def pos(p): return '['+', '.join(f'{x:.6f}'.rstrip('0').rstrip('.') for x in p)+']'
+
+          entries=[]
+          for r in rows:
+              name=r['Nodo'].strip(); nid=ids[name]; typ=circle_to_type[r['Círculo'].strip()]
+              entries.append(f'''  entry(\n    {js(nid)},\n    {js(name)},\n    {js(typ)},\n    {pos(positions[name])},\n    {sizes[name]:.2f},\n    {js(r['Función en el ecosistema'])},\n    {js(r['Por qué es importante (según su función)'])},\n    {js(r['Plataforma de origen'].strip())},\n  ),''')
+
+          src=Path('src/lib/graph-data.ts').read_text(encoding='utf-8')
+          start=src.index('export const NODES: GraphNode[] = [')
+          end=src.index('\nconst NUCLEO_IDS =', start)
+          new_nodes='export const NODES: GraphNode[] = [\n'+"\n".join(entries)+'\n];\n'
+          src=src[:start]+new_nodes+src[end:]
+          src=src.replace('  "william-scy": "mapa",\n};','  "william-scy": "mapa",\n  sentinel: "contrastar",\n};')
+          src=src.replace('const ESTRUCTURA_IDS = [\n  "hermes",\n  "positron",\n  "heimdall",\n  "codd",\n  "argos",\n  "aegis",\n  "will-app",\n  "kairos",\n  "dike",\n  "var",\n  "yata",\n] as const;', 'const ESTRUCTURA_IDS = [\n  "hermes", "positron", "heimdall", "codd", "argos", "aegis", "will-app", "kairos", "dike", "var", "yata", "emily", "ollama", "sentinel",\n] as const;')
+          # Remove the old presentation-only node types: Emily and Ollama are canonical Estructura now.
+          src=src.replace('  | "sinapsis"\n  | "cuerpo";',';')
+          src=src.replace('  sinapsis: "Sinapsis comunicacional",\n  cuerpo: "Cuerpo físico",\n','')
+          src=src.replace('  sinapsis: "#C8D8EC",\n  cuerpo: "#9EB0C4",\n','')
+          src=re.sub(r'  sinapsis: \{.*?\n  \},\n  cuerpo: \{.*?\n  \},\n', '', src, flags=re.S)
+          Path('src/lib/graph-data.ts').write_text(src, encoding='utf-8')
+
+          # Canonical nodos.md: exact CSV order/circles, then explicit non-canonical UI note.
+          table=['# Índice de nodos — 47','', 'Fuente: `SENTINEL/docs/governance/tabla_47_nodos.csv` (SHA256 '+expected+'). Texto de función, importancia y plataforma: tabla canónica.', '', '| # | Nodo | Círculo |','|---|---|---|']
+          for r in rows: table.append(f"| {r['#']} | {r['Nodo'].strip()} | {r['Círculo'].strip()} |")
+          table += ['', '## Núcleo 11+1','', 'Filas 5–16: William–Áurea. Esta es la geometría canónica 11+1.', '', 'Los 47 son el registro completo. Sentinel es el nodo 47 y pertenece a Estructura. Emily y Ollama son los nodos 45 y 46, ambos Estructura.']
+          Path('docs/graphy/nodos.md').write_text('\n'.join(table)+'\n', encoding='utf-8')
+
+          # Minimal contradiction fixes in already-touched docs.
+          for fn in ['README.md','docs/README.md','docs/graphy/registro.md','docs/graphy/organismo-operativo.md','docs/publicacion/principios-inteligencia-hibrida.md']:
+              p=Path(fn); s=p.read_text(encoding='utf-8')
+              s=s.replace('46 nodos','47 nodos').replace('índice de los 46 nodos','índice de los 47 nodos').replace('índice de 46','índice de 47')
+              s=s.replace('Emily es la sinapsis (fila 5)', 'Emily es Estructura (fila 45)')
+              s=s.replace('Ollama es el cuerpo físico (fila 6)', 'Ollama es Estructura (fila 46)')
+              s=s.replace('Emily no es núcleo: es la sinapsis entre Carla y Graphy. Ollama es el cuerpo físico. Sentinel es el nodo 47, en Estructura.', 'Emily es el nodo 45, Estructura. Ollama es el nodo 46, Estructura. Sentinel es el nodo 47, Estructura.')
+              s=s.replace('filas 7–18','filas 5–16').replace('filas 7-18','filas 5-16')
+              p.write_text(s, encoding='utf-8')
+
+          # Ensure NODES is exactly 47 and canonical terminal rows are present.
+          check=Path('src/lib/graph-data.ts').read_text(encoding='utf-8')
+          if check.count('  entry(') != 47: raise SystemExit('NODES entry count is not 47')
+          for needle in ['"emily",\n    "Emily",\n    "estructura"','"ollama",\n    "Ollama",\n    "estructura"','"sentinel",\n    "Sentinel",\n    "estructura"']:
+              if needle not in check: raise SystemExit(f'missing canonical node: {needle}')
+          PY
+
+      - name: Commit canonical reconciliation
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add README.md docs/ src/lib/graph-data.ts
+          git commit -m 'chore(graph): reconcile canonical 47 nodes'
+          git push
