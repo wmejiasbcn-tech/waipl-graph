@@ -1,28 +1,22 @@
 import * as legacy from "./graph-data-legacy";
 
-export type NodeType = "universo" | "nucleo" | "vortice" | "kuiper" | "borde" | "manifestacion" | "hardware" | "movil" | "trancita" | "estructura";
+export type NodeType = legacy.NodeType;
 export type VerifyKind = legacy.VerifyKind;
 export type Vec3 = legacy.Vec3;
+export type GraphEdge = legacy.GraphEdge;
 export type GraphNode = {
   id: string; name: string; type: NodeType; community: string; summary: string; body: string;
   platform: string; funcion: string; importancia: string; arquitectura: string;
   verify: VerifyKind; position: Vec3; size: number; color: string;
 };
-export type GraphEdge = legacy.GraphEdge;
 
-export const TYPE_LABEL: Record<NodeType, string> = {
-  universo: "Universo", nucleo: "Núcleo", vortice: "Vórtice", kuiper: "Cinturón de Kuiper",
-  borde: "Borde exterior", manifestacion: "Manifestación", hardware: "Nodo central",
-  movil: "Nodo Móvil", trancita: "Transita entre Vórtice/Cinturón de Kuiper", estructura: "Estructura",
-};
-export const TYPE_TINT: Record<NodeType, string> = {
-  universo: "#E8B42A", nucleo: "#F0C43A", vortice: "#1EC8D4", kuiper: "#1DB888", borde: "#4A8EE8",
-  manifestacion: "#E88A32", hardware: "#E07038", movil: "#F0A04A", trancita: "#14C4B0", estructura: "#7B6CFF",
-};
+export const TYPE_LABEL = legacy.TYPE_LABEL;
+export const TYPE_TINT = legacy.TYPE_TINT;
 export const VERIFY_LABEL = legacy.VERIFY_LABEL;
 export const VERIFY_QUESTION = legacy.VERIFY_QUESTION;
 export const VERIFY_HINT = legacy.VERIFY_HINT;
 export const VERIFY_TINT = legacy.VERIFY_TINT;
+export const CIRCLE_VERIFY = legacy.CIRCLE_VERIFY;
 
 const CANONICAL: Array<{ id: string; name: string; type: NodeType }> = [
   ["waipl","WAIPL","universo"],["elitebook","Nodo Central","hardware"],["movil","Nodo Móvil","movil"],["graphy","Graphy","manifestacion"],
@@ -79,4 +73,4 @@ export const EDGES: GraphEdge[] = [
 export const NODE_MAP: Record<string, GraphNode> = Object.fromEntries(NODES.map((n) => [n.id, n]));
 export function neighborsOf(id: string): GraphNode[] { const ids = new Set<string>(); for (const e of EDGES) { if (e.source === id) ids.add(e.target); else if (e.target === id) ids.add(e.source); } return [...ids].map((nid) => NODE_MAP[nid]).filter(Boolean); }
 export function degreeOf(id: string): number { return neighborsOf(id).length; }
-export const COMMUNITIES = ["Universo","Nodo central","Nodo Móvil","Manifestación","Núcleo","Vórtice","Transita entre Vórtice/Cinturón de Kuiper","Cinturón de Kuiper","Estructura","Borde exterior"] as const;
+export const COMMUNITIES = ["Universo","Nodo central","Nodo Móvil","Cuerpo físico","Manifestación","Sinapsis comunicacional","Núcleo","Vórtice","Transita entre Vórtice/Cinturón de Kuiper","Cinturón de Kuiper","Estructura","Borde exterior"] as const;
