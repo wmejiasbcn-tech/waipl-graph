@@ -289,7 +289,7 @@ export const NODES: GraphNode[] = [
     0.74,
     "Lo que se puede ver del universo: el explorador inmersivo público.",
     "Transforma cualquier repositorio de código, documentos y archivos multimedia en un grafo de conocimiento persistente y consultable, su objetivo es servir de mapa o plano arquitectónico, de forma que un visitante recorre el ecosistema sin entrar en su interior, permite, además que las IA o nodos comprenda proyectos enteros de forma instantánea sin necesidad de leer archivo por archivo. Todo ello hace que Graphy se convierta en el Sistema Nervioso Central de todo el ecosistema WAIPL",
-    "Graphify, herramienta de código abierto (licencia Apache-2.0)",
+    "Graphify, plataforma externa de inspiración histórica que inspiró Graphy (no es componente WAIPL ni SNC; Graphy es el único sistema canónico)",
   ),
   entry(
     "emily",
