@@ -355,7 +355,7 @@ export const GLOSSARY: GlossaryEntry[] = [
     id: "graphify",
     term: "Graphify",
     aliases: ["Graphify"],
-    def: "Herramienta de código abierto (licencia Apache-2.0) con la que se construye Graphy: convierte archivos en un grafo consultable.",
+    def: "Plataforma externa de referencia e inspiración histórica que inspiró la concepción y el desarrollo de Graphy. Graphify no forma parte del WAIPL ni es su SNC; Graphy es el único sistema canónico y Sistema Nervioso Central del ecosistema.",
   },
   {
     id: "i-plus-d",
