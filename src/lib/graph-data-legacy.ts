@@ -582,7 +582,7 @@ export const NODES: GraphNode[] = [
   ),
   entry(
     "william-scy",
-    "WILLIAM-SCY-O1",
+    "WILLIAM-SCY-01",
     "kuiper",
     KUIPER_POS[8],
     0.44,
