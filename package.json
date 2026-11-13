@@ -5,7 +5,10 @@
   "type": "module",
   "overrides": {
     "nf3": "0.3.17",
-    "@tanstack/start-server-core": "1.169.39"
+    "@tanstack/start-server-core": "1.169.39",
+    "@typescript-eslint/typescript-estree": {
+      "minimatch": "11.0.1"
+    }
   },
   "scripts": {
     "dev": "node scripts/with-app-env.mjs vite dev --host 0.0.0.0 --port 8080",
@@ -62,9 +65,9 @@
     "kysely": "^0.28.5",
     "lucide-react": "^0.510.0",
     "pg": "^8.16.3",
-    "react": "^19.2.0",
+    "react": "^19.2.9",
     "react-day-picker": "^9.14.0",
-    "react-dom": "^19.2.0",
+    "react-dom": "^19.2.9",
     "react-hook-form": "^7.54.0",
     "react-resizable-panels": "^4.6.5",
     "recharts": "^2.13.0",
