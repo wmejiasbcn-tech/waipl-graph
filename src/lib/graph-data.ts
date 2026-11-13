@@ -24,7 +24,7 @@ const CANONICAL: Array<{ id: string; name: string; type: NodeType }> = [
   ["perplexity","Perplexity","vortice"],["gemini-notebook","Gemini-Notebook","vortice"],["neo","Neo","vortice"],["nauta","Nauta","vortice"],["nexus","Nexus","vortice"],["qwen","Qwen 3.8 Max","vortice"],["gpai","GPAI","trancita"],
   ["kimi","Kimi K3","kuiper"],["mistral","Mistral","kuiper"],["atlas","Atlas","kuiper"],["antigravity","Antigravity","kuiper"],["cursor","Cursor","kuiper"],["vscode","Visual Studio Code","kuiper"],["zai","Z.ai","kuiper"],["auto-claw","AutoClaw","kuiper"],
   ["hermes","Hermes","estructura"],["positron","Positrón","estructura"],["heimdall","Heimdall","estructura"],["codd","Codd","estructura"],["argos","Argos","estructura"],["aegis","Aegis","estructura"],["will-app","Will App","estructura"],["kairos","Kairos","estructura"],["dike","Dike","estructura"],["var","Vár","estructura"],["yata","Yata","estructura"],
-  ["n8n","n8n","borde"],["william-scy","WILLIAM-SCY-O1","kuiper"],["emily","Emily","estructura"],["ollama","Ollama","estructura"],["sentinel","Sentinel","estructura"],
+  ["n8n","n8n","borde"],["william-scy","WILLIAM-SCY-01","kuiper"],["emily","Emily","estructura"],["ollama","Ollama","estructura"],["sentinel","Sentinel","estructura"],
 ];
 
 const OVERRIDE: Record<string, Partial<GraphNode>> = {
