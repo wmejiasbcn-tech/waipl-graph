@@ -1,4 +1,5 @@
 import * as legacy from "./graph-data-legacy";
+import { CANONICAL_TEXT } from "./graph-data-canonical";
 
 export type NodeType = legacy.NodeType;
 export type VerifyKind = legacy.VerifyKind;
@@ -28,25 +29,32 @@ const CANONICAL: Array<{ id: string; name: string; type: NodeType }> = [
 ];
 
 const OVERRIDE: Record<string, Partial<GraphNode>> = {
-  emily: { funcion: "Sinapsis comunicacional,", importancia: "Puente entre mente y SNC, canal de transmisión y auditoría.", platform: "Creado por n8n" },
-  ollama: { funcion: "Cuerpo físico", importancia: "Infraestructura de ejecución local, soporte material de los modelos.", platform: "Jeffrey Morgan y Michael Chiang" },
-  sentinel: { funcion: "Sistema transversal de gobierno, ejecución, control y coordinación de la actividad agéntica del WAIPL", importancia: "Porque establece el marco común que permite que las entidades de inteligencia artificial del ecosistema operen de forma coordinada, trazable, verificable y bajo las reglas canónicas del WAIPL, reduciendo la dependencia de intervención manual del Soberano.", platform: "Grok/xAI - WAIPL", position: [0,0.55,8.85], size: 0.42, verify: "contrastar" },
+  sentinel: { position: [0,0.55,8.85], size: 0.42, verify: "contrastar" },
 };
 
 const byId = new Map(legacy.NODES.map((n) => [n.id, n]));
-export const NODES: GraphNode[] = CANONICAL.map(([id, name, type]) => {
+export const NODES: GraphNode[] = CANONICAL.map(([id, _name, type]) => {
   const old = byId.get(id);
-  if (!old && id !== "sentinel") throw new Error(`Missing legacy node: ${id}`);
+  const canonical = CANONICAL_TEXT[id as keyof typeof CANONICAL_TEXT];
+  if (!canonical) throw new Error(`Missing canonical Table 47 record: ${id}`);
+  if (!old && id !== "sentinel") throw new Error(`Missing legacy layout: ${id}`);
   const o = OVERRIDE[id] ?? {};
   const source = old ?? ({ position: [0,0.55,8.85], size: 0.42, verify: "contrastar" } as Partial<GraphNode>);
-  const funcion = o.funcion ?? source.funcion ?? source.summary ?? "";
-  const importancia = o.importancia ?? source.importancia ?? source.body ?? "";
-  const platform = o.platform ?? source.platform ?? "";
   return {
-    id, name, type, community: TYPE_LABEL[type], summary: funcion, body: importancia, platform,
-    funcion, importancia, arquitectura: o.arquitectura ?? source.arquitectura ?? "",
-    verify: o.verify ?? source.verify ?? "contrastar", position: o.position ?? source.position ?? [0,0,0],
-    size: o.size ?? source.size ?? 0.42, color: TYPE_TINT[type],
+    id,
+    name: canonical.name,
+    type,
+    community: TYPE_LABEL[type],
+    summary: canonical.funcion,
+    body: canonical.importancia,
+    platform: canonical.platform,
+    funcion: canonical.funcion,
+    importancia: canonical.importancia,
+    arquitectura: source.arquitectura ?? "",
+    verify: o.verify ?? source.verify ?? "contrastar",
+    position: o.position ?? source.position ?? [0,0,0],
+    size: o.size ?? source.size ?? 0.42,
+    color: TYPE_TINT[type],
   };
 });
 
