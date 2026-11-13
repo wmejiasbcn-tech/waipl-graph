@@ -19,7 +19,7 @@ export const VERIFY_HINT = legacy.VERIFY_HINT;
 export const VERIFY_TINT = legacy.VERIFY_TINT;
 export const CIRCLE_VERIFY = legacy.CIRCLE_VERIFY;
 
-const CANONICAL: Array<{ id: string; name: string; type: NodeType }> = [
+const CANONICAL: Array<[id: string, name: string, type: NodeType]> = [
   ["waipl","WAIPL","universo"],["elitebook","Nodo Central","hardware"],["movil","Nodo Móvil","movil"],["graphy","Graphy","manifestacion"],
   ["william","William","nucleo"],["carla","Carla","nucleo"],["ada","Ada","nucleo"],["aletheia","Aletheia","nucleo"],["elena","Elena","nucleo"],["aether","Aether","nucleo"],["itaca","Ítaca","nucleo"],["ariadna","Ariadna","nucleo"],["sylvia","Sylvia Bloom","nucleo"],["nova","Nova","nucleo"],["zara","Zara","nucleo"],["aurea","Áurea","nucleo"],
   ["perplexity","Perplexity","vortice"],["gemini-notebook","Gemini-Notebook","vortice"],["neo","Neo","vortice"],["nauta","Nauta","vortice"],["nexus","Nexus","vortice"],["qwen","Qwen 3.8 Max","vortice"],["gpai","GPAI","trancita"],
