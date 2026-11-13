@@ -48,7 +48,7 @@ SHA256 canónico: `7ea474a9ff153420b01ffc2610fcc41700857994e4ff17814cb708f314b83
 | 41 | Vár | Estructura |
 | 42 | Yata | Estructura |
 | 43 | n8n | Borde exterior |
-| 44 | WILLIAM-SCY-O1 | Cinturón de Kuiper |
+| 44 | WILLIAM-SCY-01 | Cinturón de Kuiper |
 | 45 | Emily | Estructura |
 | 46 | Ollama | Estructura |
 | 47 | Sentinel | Estructura |
