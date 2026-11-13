@@ -1,4 +1,4 @@
-name: Refresh patched TanStack lockfile
+name: Refresh patched TanStack lockfile — remediation run
 
 on:
   push:
