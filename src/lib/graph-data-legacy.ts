@@ -1,3 +1,4 @@
+// LEGACY: posiciones, tamaños y metadatos visuales de apoyo. Sus textos de función, importancia y plataforma no son fuente vigente; la interfaz consume exclusivamente graph-data-canonical.ts, generado desde la Tabla 47.
 export type NodeType =
   | "universo"
   | "nucleo"
