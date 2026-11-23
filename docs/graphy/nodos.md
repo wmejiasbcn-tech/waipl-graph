@@ -1,8 +1,8 @@
 # Índice de nodos — Tabla 49 (49 registros)
 
 Fuente canónica vigente: [`SENTINEL/docs/governance/tabla_49_nodos.csv`](https://github.com/wmejiasbcn-tech/SENTINEL/blob/main/docs/governance/tabla_49_nodos.csv)  
-SHA-256: `1d6ea449b8abbb936995c47a7bb9a8c49e96473ba20fdf7f7f724e03b5b95717`  
-Versión de gobernanza: 1.2.2 · 2026-11-23
+SHA-256: `8ee66ccb999a47713674a994436d34d7027411ab53ebd8b106584ac48735f381`  
+Versión de gobernanza: 1.2.3 · 2026-11-23
 
 | # | Nodo | Círculo / posición estructural |
 |---:|---|---|
