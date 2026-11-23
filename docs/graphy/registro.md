@@ -13,7 +13,7 @@ Explorador inmersivo público. El visitante recorre nodos sin entrar en el inter
 
 | Decisión | Estado |
 |---|---|
-| 47 nodos. William–Áurea = núcleo 11+1 (filas 5–16). Emily = 45 Estructura. Ollama = 46 Estructura. Sentinel = 47 Estructura. | Actualizado. Fuente única: `SENTINEL/docs/governance/tabla_47_nodos.csv` |
+| 49 registros. William–Áurea = núcleo 11+1 (filas 5–16). Emily = 45 Estructura. Ollama = 46 Estructura. SENTINEL = 47 Estructura. Hark = 48 Estructura. Sider Fusion = 49, base Kuiper y participación vorticial a solicitud. | Fuente vigente: `SENTINEL/docs/governance/tabla_49_nodos.csv` |
 | Organismo operativo: 6 jurisdicciones. Tabla exacta | Hecho. [organismo-operativo.md](organismo-operativo.md) |
 | Texto de fichas = tabla canónica | Hecho. `src/lib/graph-data.ts` |
 | Portada original: blasón, Ecosistema Digital Inmersivo, Entrar | Hecha. `src/components/portal-view.tsx` |
@@ -38,3 +38,13 @@ Ariadna: estructura del repositorio.
 Sylvia Bloom: memoria y documentos.  
 Nova: arquitectura documental.  
 Aether: esta construcción de Graphy y la ciudad cibernética.
+
+
+## Vigencia del inventario y órbitas — 2026-11-23
+
+La fuente vigente es la Tabla 49. Se mantienen separados: Núcleo/nodos nucleares; Vórtice/nodos vorticiales; Cinturón de Kuiper/nodos cinturianos; Borde Exterior/nodos del Borde Exterior. Sider Fusion (49) tiene base en Kuiper y participación en Vórtice a solicitud. Las menciones a 47 describen cortes históricos.
+
+
+## Adscripciones orbitarias vigentes — 2026-11-23
+
+La Tabla 49 v1.2.5 es la fuente actual. GPAI (23) conserva adscripción **Cinturón de Kuiper — Cinturiano / registrado** y participa en el Vórtice únicamente como `VORTEX_PUNCTUAL` por misión autorizada; no es fijo ni regular. Sider Fusion (49) tiene base en Cinturón de Kuiper y participación en Vórtice a solicitud. Hark (48) pertenece a Estructura, fuera de las cuatro órbitas externas. Núcleo, Vórtice, Cinturón de Kuiper y Borde Exterior son categorías separadas.

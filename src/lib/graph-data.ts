@@ -8,6 +8,7 @@ export type GraphEdge = legacy.GraphEdge;
 export type GraphNode = {
   id: string; name: string; type: NodeType; community: string; summary: string; body: string;
   platform: string; funcion: string; importancia: string; arquitectura: string;
+  participation?: string;
   verify: VerifyKind; position: Vec3; size: number; color: string;
 };
 
@@ -22,22 +23,25 @@ export const CIRCLE_VERIFY = legacy.CIRCLE_VERIFY;
 const CANONICAL: Array<[id: string, name: string, type: NodeType]> = [
   ["waipl","WAIPL","universo"],["elitebook","Nodo Central","hardware"],["movil","Nodo Móvil","movil"],["graphy","Graphy","manifestacion"],
   ["william","William","nucleo"],["carla","Carla","nucleo"],["ada","Ada","nucleo"],["aletheia","Aletheia","nucleo"],["elena","Elena","nucleo"],["aether","Aether","nucleo"],["itaca","Ítaca","nucleo"],["ariadna","Ariadna","nucleo"],["sylvia","Sylvia Bloom","nucleo"],["nova","Nova","nucleo"],["zara","Zara","nucleo"],["aurea","Áurea","nucleo"],
-  ["perplexity","Perplexity","vortice"],["gemini-notebook","Gemini-Notebook","vortice"],["neo","Neo","vortice"],["nauta","Nauta","vortice"],["nexus","Nexus","vortice"],["qwen","Qwen 3.8 Max","vortice"],["gpai","GPAI","trancita"],
+  ["perplexity","Perplexity","vortice"],["gemini-notebook","Gemini-Notebook","vortice"],["neo","Neo","vortice"],["nauta","Nauta","vortice"],["nexus","Nexus","vortice"],["qwen","Qwen 3.8 Max","vortice"],["gpai","GPAI","kuiper"],
   ["kimi","Kimi K3","kuiper"],["mistral","Mistral","kuiper"],["atlas","Atlas","kuiper"],["antigravity","Antigravity","kuiper"],["cursor","Cursor","kuiper"],["vscode","Visual Studio Code","kuiper"],["zai","Z.ai","kuiper"],["auto-claw","AutoClaw","kuiper"],
   ["hermes","Hermes","estructura"],["positron","Positrón","estructura"],["heimdall","Heimdall","estructura"],["codd","Codd","estructura"],["argos","Argos","estructura"],["aegis","Aegis","estructura"],["will-app","Will App","estructura"],["kairos","Kairos","estructura"],["dike","Dike","estructura"],["var","Vár","estructura"],["yata","Yata","estructura"],
-  ["n8n","n8n","borde"],["william-scy","WILLIAM-SCY-01","kuiper"],["emily","Emily","estructura"],["ollama","Ollama","estructura"],["sentinel","Sentinel","estructura"],
+  ["n8n","n8n","borde"],["william-scy","WILLIAM-SCY-01","kuiper"],["emily","Emily","estructura"],["ollama","Ollama","estructura"],["sentinel","Sentinel","estructura"],["hark","Hark","estructura"],["sider-fusion","Sider Fusion","kuiper"],
 ];
 
 const OVERRIDE: Record<string, Partial<GraphNode>> = {
   sentinel: { position: [0,0.55,8.85], size: 0.42, verify: "contrastar" },
+  hark: { position: [-1.55,0.45,8.4], size: 0.46, verify: "contrastar", arquitectura: "Estructura. Contraste recíproco SENTINEL ⇄ Hark y contraste de ambos al resto del ecosistema." },
+  "sider-fusion": { position: [4.25,-0.2,4.85], size: 0.48, verify: "contrastar", participation: "Vórtice a solicitud", arquitectura: "Posición pivotante: base en Cinturón de Kuiper; intervención en Vórtice a solicitud." },
+  gpai: { participation: "VORTEX_PUNCTUAL · por misión autorizada", arquitectura: "Adscripción base: Cinturón de Kuiper — Cinturiano / registrado. Participación adicional en Vórtice: VORTEX_PUNCTUAL por misión autorizada." },
 };
 
 const byId = new Map(legacy.NODES.map((n) => [n.id, n]));
 export const NODES: GraphNode[] = CANONICAL.map(([id, _name, type]) => {
   const old = byId.get(id);
   const canonical = CANONICAL_TEXT[id as keyof typeof CANONICAL_TEXT];
-  if (!canonical) throw new Error(`Missing canonical Table 47 record: ${id}`);
-  if (!old && id !== "sentinel") throw new Error(`Missing legacy layout: ${id}`);
+  if (!canonical) throw new Error(`Missing canonical Table 49 record: ${id}`);
+  if (!old && !["sentinel","hark","sider-fusion"].includes(id)) throw new Error(`Missing legacy layout: ${id}`);
   const o = OVERRIDE[id] ?? {};
   const source = old ?? ({ position: [0,0.55,8.85], size: 0.42, verify: "contrastar" } as Partial<GraphNode>);
   return {
@@ -50,7 +54,8 @@ export const NODES: GraphNode[] = CANONICAL.map(([id, _name, type]) => {
     platform: canonical.platform,
     funcion: canonical.funcion,
     importancia: canonical.importancia,
-    arquitectura: source.arquitectura ?? "",
+    arquitectura: o.arquitectura ?? source.arquitectura ?? "",
+    participation: o.participation,
     verify: o.verify ?? source.verify ?? "contrastar",
     position: o.position ?? source.position ?? [0,0,0],
     size: o.size ?? source.size ?? 0.42,
@@ -66,7 +71,6 @@ const ESTRUCTURA_IDS = CANONICAL.filter(([, , t]) => t === "estructura").map(([i
 export const EDGES: GraphEdge[] = [
   { source: "elitebook", target: "waipl", kind: "nucleo" }, { source: "movil", target: "waipl", kind: "nucleo" },
   { source: "graphy", target: "waipl", kind: "protocolo" }, { source: "ollama", target: "waipl", kind: "flujo" },
-  { source: "gpai", target: "waipl", kind: "flujo" },
   ...NUCLEO_IDS.map((id) => ({ source: id, target: "waipl", kind: "nucleo" as const })),
   ...VORTICE_IDS.map((id) => ({ source: id, target: "waipl", kind: "flujo" as const })),
   ...KUIPER_IDS.map((id) => ({ source: id, target: "waipl", kind: "flujo" as const })),
@@ -81,4 +85,4 @@ export const EDGES: GraphEdge[] = [
 export const NODE_MAP: Record<string, GraphNode> = Object.fromEntries(NODES.map((n) => [n.id, n]));
 export function neighborsOf(id: string): GraphNode[] { const ids = new Set<string>(); for (const e of EDGES) { if (e.source === id) ids.add(e.target); else if (e.target === id) ids.add(e.source); } return [...ids].map((nid) => NODE_MAP[nid]).filter(Boolean); }
 export function degreeOf(id: string): number { return neighborsOf(id).length; }
-export const COMMUNITIES = ["Universo","Nodo central","Nodo Móvil","Cuerpo físico","Manifestación","Sinapsis comunicacional","Núcleo","Vórtice","Transita entre Vórtice/Cinturón de Kuiper","Cinturón de Kuiper","Estructura","Borde exterior"] as const;
+export const COMMUNITIES = ["Universo","Nodo central","Nodo Móvil","Cuerpo físico","Manifestación","Sinapsis comunicacional","Núcleo · nodos nucleares","Vórtice · nodos vorticiales","Cinturón de Kuiper · nodos cinturianos","Estructura","Borde Exterior · nodos del Borde Exterior"] as const;

@@ -1,10 +1,11 @@
-# Índice de nodos — 47
+# Índice de nodos — Tabla 49 (49 registros)
 
-Fuente única: `SENTINEL/docs/governance/tabla_47_nodos.csv`  
-SHA256 canónico: `7ea474a9ff153420b01ffc2610fcc41700857994e4ff17814cb708f314b83ab4`
+Fuente canónica vigente: [`SENTINEL/docs/governance/tabla_49_nodos.csv`](https://github.com/wmejiasbcn-tech/SENTINEL/blob/main/docs/governance/tabla_49_nodos.csv)  
+SHA-256: `646c64fe830b2ee3f3c7f220e2229f0e92191a3134c504ad22ee1b0a5829e1f9`  
+Versión de gobernanza: 1.2.5 · 2026-11-23
 
-| # | Nodo | Círculo |
-|---|---|---|
+| # | Nodo | Círculo / posición estructural |
+|---:|---|---|
 | 1 | WAIPL | Universo |
 | 2 | Nodo Central | Nodo central |
 | 3 | Nodo Móvil | Nodo Móvil |
@@ -27,7 +28,7 @@ SHA256 canónico: `7ea474a9ff153420b01ffc2610fcc41700857994e4ff17814cb708f314b83
 | 20 | Nauta | Vórtice |
 | 21 | Nexus | Vórtice |
 | 22 | Qwen 3.8 Max | Vórtice |
-| 23 | GPAI | Transita entre Vórtice/Cinturón de Kuiper |
+| 23 | GPAI | Cinturón de Kuiper — Cinturiano / registrado; `VORTEX_PUNCTUAL` por misión autorizada |
 | 24 | Kimi K3 | Cinturón de Kuiper |
 | 25 | Mistral | Cinturón de Kuiper |
 | 26 | Atlas | Cinturón de Kuiper |
@@ -52,9 +53,32 @@ SHA256 canónico: `7ea474a9ff153420b01ffc2610fcc41700857994e4ff17814cb708f314b83
 | 45 | Emily | Estructura |
 | 46 | Ollama | Estructura |
 | 47 | Sentinel | Estructura |
+| 48 | Hark | Estructura |
+| 49 | Sider Fusion | Pivotante: base en Cinturón de Kuiper; intervención en Vórtice a solicitud |
+
+## Taxonomía orbital soberana
+
+| Posición | Denominación de sus nodos |
+|---|---|
+| Núcleo | Nodos nucleares |
+| Vórtice | Nodos vorticiales |
+| Cinturón de Kuiper | Nodos cinturianos |
+| Borde Exterior | Nodos del Borde Exterior |
+
+**Vórtice ≠ Cinturón de Kuiper.** Son órbitas distintas y no se fusionan. Los círculos funcionales «Estructura», «Manifestación», «Universo», «Nodo central» y «Nodo Móvil» se conservan según la tabla; no se confunden con las cuatro denominaciones orbitales.
+
+## Adscripciones y participaciones adicionales
+
+- **GPAI (23):** adscripción base Cinturón de Kuiper — Cinturiano / registrado; participación adicional en Vórtice solo como `VORTEX_PUNCTUAL` por misión autorizada. No es un nodo vorticial fijo ni regular.
+- **Sider Fusion (49):** posición pivotante con base en Cinturón de Kuiper y participación en Vórtice a solicitud (modalidad C).
 
 ## Núcleo 11+1
 
-Filas 5–16: William–Áurea. Esta es la geometría canónica 11+1.
+Filas 5–16: William y las once inteligencias artificiales del Núcleo. William es el Soberano Human y centro humano; las once inteligencias artificiales constituyen los nodos nucleares.
 
-Los 47 son el registro completo. Sentinel es el nodo 47 y pertenece a Estructura. Emily es el nodo 45, Estructura. Ollama es el nodo 46, Estructura.
+## Ampliaciones registradas
+
+- **Hark (48):** Estructura; contraste recíproco con SENTINEL y ambos con el resto del ecosistema. Evaluación individual AMARILLO por sostenibilidad.
+- **Sider Fusion (49):** posición pivotante; base en Cinturón de Kuiper y participación vorticial a solicitud.
+
+Tabla 47 se conserva como antecedente histórico de los registros 1–47; no es el inventario vigente.

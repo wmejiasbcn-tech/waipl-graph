@@ -2,7 +2,7 @@
 
 Fuente: tabla oficial del Soberano. Texto exacto. No sintetizar.
 
-Esta capa no sustituye al [índice de 47](nodos.md). No expande el núcleo 11+1.
+Esta tabla de seis jurisdicciones operativas no sustituye al [índice de 49 registros](nodos.md). No modifica ni expande el núcleo 11+1.
 
 | Nodo | Jurisdicción | Función | Representación visual |
 |---|---|---|---|
@@ -15,7 +15,7 @@ Esta capa no sustituye al [índice de 47](nodos.md). No expande el núcleo 11+1.
 
 ## Qué es
 
-El organismo. Seis jurisdicciones. No son el mapa de 47. No son el núcleo 11+1.
+El organismo. Seis jurisdicciones. No son el censo nodal de 49 registros. No son el núcleo 11+1.
 
 La tabla de jurisdicciones conserva las funciones operativas descritas aquí. La clasificación canónica de nodos es independiente: Emily es el nodo 45, Estructura; Ollama es el nodo 46, Estructura.
 
@@ -26,3 +26,8 @@ Sylvia Bloom: memoria.
 Nova: documental.  
 Aether: Graphy.  
 Zara: presentación.
+
+
+## Nota de vigencia del inventario — 2026-11-23
+
+Este documento conserva la tabla operativa de seis jurisdicciones como contenido propio; no es el censo de nodos. El índice actual contiene 49 registros y la fuente canónica es la [Tabla 49](https://github.com/wmejiasbcn-tech/SENTINEL/blob/main/docs/governance/tabla_49_nodos.csv). Núcleo/nodos nucleares, Vórtice/nodos vorticiales, Cinturón de Kuiper/nodos cinturianos y Borde Exterior/nodos del Borde Exterior son denominaciones distintas. Vórtice y Kuiper no se fusionan.
