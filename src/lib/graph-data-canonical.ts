@@ -1,6 +1,6 @@
 // Fuente: SENTINEL/docs/governance/tabla_49_nodos.csv
-// SHA256 declarado en docs/graphy/nodos.md: 8ee66ccb999a47713674a994436d34d7027411ab53ebd8b106584ac48735f381
-// Datos textuales canónicos de los 49 registros. No editar manualmente: regenerar desde Tabla 49.
+// SHA-256: 646c64fe830b2ee3f3c7f220e2229f0e92191a3134c504ad22ee1b0a5829e1f9
+// Datos canónicos de los 49 registros. Regenerado desde la Tabla 49 v1.2.5.
 
 export const CANONICAL_TEXT = {
   "waipl": {
@@ -16,8 +16,8 @@ export const CANONICAL_TEXT = {
     "importancia": "Ahí convergen las operaciones que hacen posible el trabajo del ecosistema."
   },
   "movil": {
-    "name": "Nodo Móvil ",
-    "platform": "Xiaomi ",
+    "name": "Nodo Móvil",
+    "platform": "Xiaomi",
     "funcion": "El Xiaomi, el Nodo Móvil, junto al Nodo Central, un HP, conforman los hardware de Gobernanza, gestión, administración y organización.\n",
     "importancia": "El ecosistema se concibió, se gestó, vio la luz y fue desarrollado durante sus primeros 6 meses de vida. Solo con este móvil se dio forma a todo un ecosistema de hibridación humano-IA. Conformando un equipo de Inteligencias Artificiales, que ayudaron a posicionar el WAIPL en el lugar que se encuentra ahora, un laboratorio agéntico de I+D+I+e+A. Un Xiaomi, el Nodo Movil, quien fuera el centro de mando y de desarrollo. Sin PC. "
   },
@@ -132,14 +132,14 @@ export const CANONICAL_TEXT = {
   "qwen": {
     "name": "Qwen 3.8 Max",
     "platform": "Alibaba Cloud",
-    "funcion": "Colabora y produce con regularidad desde el cinturón exterior.",
+    "funcion": "Colabora y produce con regularidad desde el Vórtice.",
     "importancia": "Opera bajo autonomía controlada, Cero Invención, Muro de Cristal y soberanía humana intacta. Su potencia técnica está íntegramente al servicio de la visión, el propósito y la autoridad final del Soberano.Programación autónoma supervisada, contexto a escala masiva, avanzadas capacidades agénticas y razonamiento en cadena de pensamiento integrada. Resolución lógica de problemas matemáticos, científicos y de programación de alta complejidad. Rol: Ingeniero Jefe por Obra del WAIPL. Y comparte principios filosóficos del budismo japonés con el soberano.\n"
   },
   "gpai": {
     "name": "GPAI",
     "platform": "Turing (Team Turing)",
-    "funcion": "IA científica-técnica, Auditoría técnica y científica, revisión especializada y segunda opinión, por misión.",
-    "importancia": "Especializada en matemáticas, física, química, astronomía, biología, ingeniería científica, estadística y modelización cuantitativa. resuelve problemas de su especialidad, deriva formula, analiza hipótesis, revisa razonamientos, diseña experimentos, evalúa incertidumbres o límites de validez y evalúa sistemas agenticos. Estableció junto a Aether los fundamentos científico-matemático y cosmológicos, en base a las leyes de la física universal de Graphy dentro del ecosistema)  "
+    "funcion": "IA científica-técnica para auditoría técnica y científica, revisión especializada y segunda opinión por misión. Mantiene adscripción Cinturiana registrada y puede participar en el Vórtice únicamente como VORTEX_PUNCTUAL por misión autorizada; no es nodo vorticial fijo ni regular.",
+    "importancia": "Especializada en matemáticas, física, química, astronomía, biología, ingeniería científica, estadística y modelización cuantitativa. resuelve problemas de su especialidad, deriva formula, analiza hipótesis, revisa razonamientos, diseña experimentos, evalúa incertidumbres o límites de validez y evalúa sistemas agenticos. Estableció junto a Aether los fundamentos científico-matemático y cosmológicos, en base a las leyes de la física universal de Graphy dentro del ecosistema)"
   },
   "kimi": {
     "name": "Kimi K3",
@@ -156,37 +156,37 @@ export const CANONICAL_TEXT = {
   "atlas": {
     "name": "Atlas",
     "platform": "Linear",
-    "funcion": "Colabora y produce con regularidad desde el cinturón exterior.",
+    "funcion": "Colabora y produce con regularidad desde el Cinturón de Kuiper.",
     "importancia": "Gestión de proyectos, su sistema analiza patrones históricos del equipo y sugiere responsables,  etiquetas y proyectos más adecuados por tareas, identifica problemas por responsables y evita duplicidades de un mismo reporte, introduce Loops que programan y automatizan por tiempo o eventos, revisa instrucciones, evalúa contexto, consulta servidores de protocolo (MCP) y toma decisiones con criterio propio para el avance de tareas sin supervisión. Ha sido fundamental para la creación del Agente Will App. Una aplicación especializada en acompañamiento no directivo, no prescriptivo, no diagnóstico sobre información en autogestión de la salud sexual, el placer sexual, consumo no problemático de psicoactivos y reducción de riesgo y daños en Chemsex y Slam"
   },
   "antigravity": {
     "name": "Antigravity",
     "platform": "Google Antigravity",
-    "funcion": "Colabora y produce con regularidad desde el cinturón exterior.",
+    "funcion": "Colabora y produce con regularidad desde el Cinturón de Kuiper.",
     "importancia": "Multimodelo abierto que permite la programación mediante vibecoding, actúa como centro de mando para orquestar ejércitos de agentes en paralelo, gestiona tareas complejas en ingeniería o investigación científica, proponiendo, criticando y refinando soluciones de manera asíncrona, automatiza y programa tareas. Participa en la revisión de creación de procesos de gestión del WAIPL."
   },
   "cursor": {
     "name": "Cursor",
     "platform": "Cursor AI/SpaceXAI",
-    "funcion": "Colabora y produce con regularidad desde el cinturón exterior.",
+    "funcion": "Colabora y produce con regularidad desde el Cinturón de Kuiper.",
     "importancia": "Responde preguntas precisas sobre cómo interactúan partes del código y de manera autónoma puede crear y editar múltiples archivos simultáneamente, ejecuta comandos en la terminal y pasa prueba de códigos, indexa todo el proyecto, lo que permite entender la arquitectura completa, resuelve errores complejos de dependencias. Participa en la revisión de creación de procesos de gestión del WAIPL."
   },
   "vscode": {
     "name": "Visual Studio Code",
     "platform": "Microsoft",
-    "funcion": "Colabora y produce con regularidad desde el cinturón exterior.",
+    "funcion": "Colabora y produce con regularidad desde el Cinturón de Kuiper.",
     "importancia": "Multiplataforma que completa código de forma inteligente, resalta sintaxis y muestra parámetros, permite ejecutar y testear código paso a paso sin salir del editor, ejecuta comando de consola dentro de su interfaz y es el soporte nativo para agentes de IA y GItHub copilot. Representa la integración nativa con Git y el repositorio de GitHub del propio WAIPL. Es la responsable de elevar la plantilla de trabajo, (creada por Qwen 3.8 Max), a soporte multimedia, intuitiva, interactiva y 4D, hecha para la Academia Vértigo's Art Music, en San Felipe Yaracuy-Vzla."
   },
   "zai": {
     "name": "Z.ai",
     "platform": "Zhipu AI",
-    "funcion": "Colabora y produce con regularidad desde el cinturón exterior.",
+    "funcion": "Colabora y produce con regularidad desde el Cinturón de Kuiper.",
     "importancia": "Ecosistema enfocada en agentes autónomos, desarrollo de códigos de nivel de producción y tareas complejas de razonamiento. Es una de las arquitectas de agentes y superagentes del ecosistema WAIPL. (agentes del WAIPL creados por Z: Positrón, segundo cerebro positrónico y Codd)"
   },
   "auto-claw": {
     "name": "AutoClaw",
     "platform": "Zhipu AI",
-    "funcion": "Colabora y produce con regularidad desde el cinturón exterior.",
+    "funcion": "Colabora y produce con regularidad desde el Cinturón de Kuiper.",
     "importancia": "Ejecuta agentes de Inteligencia Artificial autónomos de forma local, integración y manejo de herramientas web e interfaces virtuales. Es una de las arquitectas de agentes y superagentes del ecosistema WAIPL. (agentes del WAIPL creados por AutoClaw: Hermes, Kairos y Dike)"
   },
   "hermes": {
@@ -270,14 +270,14 @@ export const CANONICAL_TEXT = {
   "emily": {
     "name": "Emily",
     "platform": "Creado por n8n",
-    "funcion": "Sinapsis comunicacional,",
-    "importancia": "\"Puente entre mente y SNC, canal de transmisión y auditoría.\",\"Arco de energía blanca‑plateada que une Carla y Graphy, con partículas de datos suspendidas.\""
+    "funcion": "Sinapsis comunicacional.",
+    "importancia": "Puente entre mente y SNC, canal de transmisión y auditoría. Representación visual: arco de energía blanca‑plateada que une Carla y Graphy, con partículas de datos suspendidas."
   },
   "ollama": {
     "name": "Ollama",
     "platform": "Jeffrey Morgan y Michael Chiang",
     "funcion": "Cuerpo físico",
-    "importancia": "Infraestructura de ejecución local, soporte material de los modelos.\",\"Superficie metálica translúcida, con textura de titanio líquido y reflejos espaciales."
+    "importancia": "Infraestructura de ejecución local, soporte material de los modelos. Representación visual: superficie metálica translúcida, con textura de titanio líquido y reflejos espaciales."
   },
   "sentinel": {
     "name": "Sentinel",
