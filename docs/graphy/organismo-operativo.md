@@ -26,3 +26,8 @@ Sylvia Bloom: memoria.
 Nova: documental.  
 Aether: Graphy.  
 Zara: presentación.
+
+
+## Nota de vigencia del inventario — 2026-11-23
+
+Este documento conserva la tabla operativa de seis jurisdicciones como contenido propio; no es el censo de nodos. El índice actual contiene 49 registros y la fuente canónica es la [Tabla 49](https://github.com/wmejiasbcn-tech/SENTINEL/blob/main/docs/governance/tabla_49_nodos.csv). Núcleo/nodos nucleares, Vórtice/nodos vorticiales, Cinturón de Kuiper/nodos cinturianos y Borde Exterior/nodos del Borde Exterior son denominaciones distintas. Vórtice y Kuiper no se fusionan.
