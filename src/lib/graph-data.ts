@@ -25,19 +25,21 @@ const CANONICAL: Array<[id: string, name: string, type: NodeType]> = [
   ["perplexity","Perplexity","vortice"],["gemini-notebook","Gemini-Notebook","vortice"],["neo","Neo","vortice"],["nauta","Nauta","vortice"],["nexus","Nexus","vortice"],["qwen","Qwen 3.8 Max","vortice"],["gpai","GPAI","trancita"],
   ["kimi","Kimi K3","kuiper"],["mistral","Mistral","kuiper"],["atlas","Atlas","kuiper"],["antigravity","Antigravity","kuiper"],["cursor","Cursor","kuiper"],["vscode","Visual Studio Code","kuiper"],["zai","Z.ai","kuiper"],["auto-claw","AutoClaw","kuiper"],
   ["hermes","Hermes","estructura"],["positron","Positrón","estructura"],["heimdall","Heimdall","estructura"],["codd","Codd","estructura"],["argos","Argos","estructura"],["aegis","Aegis","estructura"],["will-app","Will App","estructura"],["kairos","Kairos","estructura"],["dike","Dike","estructura"],["var","Vár","estructura"],["yata","Yata","estructura"],
-  ["n8n","n8n","borde"],["william-scy","WILLIAM-SCY-01","kuiper"],["emily","Emily","estructura"],["ollama","Ollama","estructura"],["sentinel","Sentinel","estructura"],
+  ["n8n","n8n","borde"],["william-scy","WILLIAM-SCY-01","kuiper"],["emily","Emily","estructura"],["ollama","Ollama","estructura"],["sentinel","Sentinel","estructura"],["hark","Hark","estructura"],["sider-fusion","Sider Fusion","kuiper"],
 ];
 
 const OVERRIDE: Record<string, Partial<GraphNode>> = {
   sentinel: { position: [0,0.55,8.85], size: 0.42, verify: "contrastar" },
+  hark: { position: [-1.55,0.45,8.4], size: 0.46, verify: "contrastar" },
+  "sider-fusion": { position: [4.25,-0.2,4.85], size: 0.48, verify: "contrastar" },
 };
 
 const byId = new Map(legacy.NODES.map((n) => [n.id, n]));
 export const NODES: GraphNode[] = CANONICAL.map(([id, _name, type]) => {
   const old = byId.get(id);
   const canonical = CANONICAL_TEXT[id as keyof typeof CANONICAL_TEXT];
-  if (!canonical) throw new Error(`Missing canonical Table 47 record: ${id}`);
-  if (!old && id !== "sentinel") throw new Error(`Missing legacy layout: ${id}`);
+  if (!canonical) throw new Error(`Missing canonical Table 49 record: ${id}`);
+  if (!old && !["sentinel","hark","sider-fusion"].includes(id)) throw new Error(`Missing legacy layout: ${id}`);
   const o = OVERRIDE[id] ?? {};
   const source = old ?? ({ position: [0,0.55,8.85], size: 0.42, verify: "contrastar" } as Partial<GraphNode>);
   return {
@@ -81,4 +83,4 @@ export const EDGES: GraphEdge[] = [
 export const NODE_MAP: Record<string, GraphNode> = Object.fromEntries(NODES.map((n) => [n.id, n]));
 export function neighborsOf(id: string): GraphNode[] { const ids = new Set<string>(); for (const e of EDGES) { if (e.source === id) ids.add(e.target); else if (e.target === id) ids.add(e.source); } return [...ids].map((nid) => NODE_MAP[nid]).filter(Boolean); }
 export function degreeOf(id: string): number { return neighborsOf(id).length; }
-export const COMMUNITIES = ["Universo","Nodo central","Nodo Móvil","Cuerpo físico","Manifestación","Sinapsis comunicacional","Núcleo","Vórtice","Transita entre Vórtice/Cinturón de Kuiper","Cinturón de Kuiper","Estructura","Borde exterior"] as const;
+export const COMMUNITIES = ["Universo","Nodo central","Nodo Móvil","Cuerpo físico","Manifestación","Sinapsis comunicacional","Núcleo · nodos nucleares","Vórtice · nodos vorticiales","Transita entre Vórtice/Cinturón de Kuiper","Cinturón de Kuiper · nodos cinturianos","Estructura","Borde Exterior · nodos del Borde Exterior"] as const;
