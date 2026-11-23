@@ -19,11 +19,14 @@ Este directorio indexa lo concebido, registrado y trazable. El código que lo ej
 | [graphy/skills-ventanas.md](graphy/skills-ventanas.md) | Skill: una ventana pública |
 | [graphy/skills-presentaciones.md](graphy/skills-presentaciones.md) | Skill: Graphy, decks, vídeo |
 
-Fuente de las fichas: `SENTINEL/docs/governance/tabla_49_nodos.csv`, SHA-256 `1d6ea449b8abbb936995c47a7bb9a8c49e96473ba20fdf7f7f724e03b5b95717`. 49 registros, texto canónico de función, importancia y plataforma.
+Fuente de las fichas: `SENTINEL/docs/governance/tabla_49_nodos.csv`, SHA-256 `646c64fe830b2ee3f3c7f220e2229f0e92191a3134c504ad22ee1b0a5829e1f9`. 49 registros, texto canónico de función, importancia y plataforma.
 
-El núcleo canónico de esa tabla (William–Áurea, filas 5–16) es el 11+1 del deck de principios. 47 no sustituye a 11+1. Emily es el nodo 45, Estructura. Ollama es el nodo 46, Estructura. Sentinel es el nodo 47, Estructura.
+El núcleo canónico de esa tabla (William–Áurea, filas 5–16) es el 11+1 del deck de principios. 49 no sustituye a 11+1. Emily es el nodo 45, Estructura. Ollama es el nodo 46, Estructura. Sentinel es el nodo 47, Estructura.
 
 
 ## Clasificación orbital vigente — 2026-11-23
 
 Núcleo (nodos nucleares), Vórtice (nodos vorticiales), Cinturón de Kuiper (nodos cinturianos) y Borde Exterior (nodos del Borde Exterior) son categorías distintas. Vórtice y Cinturón de Kuiper no se agrupan ni se usan como sinónimos. La Tabla 47 es antecedente histórico; la fuente vigente es la Tabla 49.
+
+
+**Adscripción adicional GPAI:** nodo 23, Cinturón de Kuiper — Cinturiano / registrado; participación en Vórtice únicamente como `VORTEX_PUNCTUAL` por misión autorizada. Sider Fusion (49) es pivotante: base Kuiper, intervención Vórtice a solicitud. La posición Estructura de Hark (48) no pertenece a ninguna de las cuatro órbitas externas.
