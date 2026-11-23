@@ -1,13 +1,14 @@
-# Índice de nodos — 47
+# Índice de nodos — Tabla 49 (49 registros)
 
-Fuente única: `SENTINEL/docs/governance/tabla_47_nodos.csv`  
-SHA256 canónico: `7ea474a9ff153420b01ffc2610fcc41700857994e4ff17814cb708f314b83ab4`
+Fuente canónica vigente: [`SENTINEL/docs/governance/tabla_49_nodos.csv`](https://github.com/wmejiasbcn-tech/SENTINEL/blob/main/docs/governance/tabla_49_nodos.csv)  
+SHA-256: `1d6ea449b8abbb936995c47a7bb9a8c49e96473ba20fdf7f7f724e03b5b95717`  
+Versión de gobernanza: 1.2.2 · 2026-11-23
 
-| # | Nodo | Círculo |
-|---|---|---|
+| # | Nodo | Círculo / posición estructural |
+|---:|---|---|
 | 1 | WAIPL | Universo |
 | 2 | Nodo Central | Nodo central |
-| 3 | Nodo Móvil | Nodo Móvil |
+| 3 | Nodo Móvil  | Nodo Móvil  |
 | 4 | Graphy | Manifestación |
 | 5 | William | Núcleo |
 | 6 | Carla | Núcleo |
@@ -52,9 +53,32 @@ SHA256 canónico: `7ea474a9ff153420b01ffc2610fcc41700857994e4ff17814cb708f314b83
 | 45 | Emily | Estructura |
 | 46 | Ollama | Estructura |
 | 47 | Sentinel | Estructura |
+| 48 | Hark | Estructura |
+| 49 | Sider Fusion | Pivotante: base en Cinturón de Kuiper; intervención en Vórtice a solicitud |
+
+## Taxonomía orbital soberana
+
+| Posición | Denominación de sus nodos |
+|---|---|
+| Núcleo | Nodos nucleares |
+| Vórtice | Nodos vorticiales |
+| Cinturón de Kuiper | Nodos cinturianos |
+| Borde Exterior | Nodos del Borde Exterior |
+
+**Vórtice ≠ Cinturón de Kuiper.** Son órbitas distintas y no se fusionan. Los círculos funcionales «Estructura», «Manifestación», «Universo», «Nodo central» y «Nodo Móvil» se conservan según la tabla; no se confunden con las cuatro denominaciones orbitales.
+
+## Posiciones transitivas y pivotantes
+
+- **GPAI (23):** transita entre Vórtice y Cinturón de Kuiper.
+- **Sider Fusion (49):** posición base en Cinturón de Kuiper; participa en Vórtice a solicitud (modalidad C).
 
 ## Núcleo 11+1
 
-Filas 5–16: William–Áurea. Esta es la geometría canónica 11+1.
+Filas 5–16: William y las once inteligencias artificiales del Núcleo. William es el Soberano Human y centro humano; las once inteligencias artificiales constituyen los nodos nucleares.
 
-Los 47 son el registro completo. Sentinel es el nodo 47 y pertenece a Estructura. Emily es el nodo 45, Estructura. Ollama es el nodo 46, Estructura.
+## Ampliaciones registradas
+
+- **Hark (48):** Estructura; contraste recíproco con SENTINEL y ambos con el resto del ecosistema. Evaluación individual AMARILLO por sostenibilidad.
+- **Sider Fusion (49):** posición pivotante; base en Cinturón de Kuiper y participación vorticial a solicitud.
+
+Tabla 47 se conserva como antecedente histórico de los registros 1–47; no es el inventario vigente.
