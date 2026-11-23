@@ -1,4 +1,4 @@
-// LEGACY: posiciones, tamaños y metadatos visuales de apoyo. Sus textos de función, importancia y plataforma no son fuente vigente; la interfaz consume exclusivamente graph-data-canonical.ts, generado desde la Tabla 47.
+// LEGACY: posiciones, tamaños y metadatos visuales de apoyo. Sus textos de función, importancia y plataforma no son fuente vigente; la interfaz consume exclusivamente graph-data-canonical.ts, generado desde la Tabla 49.
 export type NodeType =
   | "universo"
   | "nucleo"
@@ -42,10 +42,10 @@ export type GraphEdge = {
 
 export const TYPE_LABEL: Record<NodeType, string> = {
   universo: "Universo",
-  nucleo: "Núcleo",
-  vortice: "Vórtice",
-  kuiper: "Cinturón de Kuiper",
-  borde: "Borde exterior",
+  nucleo: "Núcleo · nodos nucleares",
+  vortice: "Vórtice · nodos vorticiales",
+  kuiper: "Cinturón de Kuiper · nodos cinturianos",
+  borde: "Borde Exterior · nodos del Borde Exterior",
   manifestacion: "Manifestación",
   hardware: "Nodo central",
   movil: "Nodo Móvil",
@@ -126,7 +126,7 @@ export const CIRCLE_VERIFY: Record<
   vortice: {
     ejecutar: "Pasos ejecutables y programación autónoma, cuando el contraste se vuelve acción.",
     contrastar: "Alerta temprana, investigación externa, segunda mirada. Por eso existen.",
-    mapa: "El anillo que ve lo que el interior no ve.",
+    mapa: "Órbita propia del Vórtice: nodos vorticiales. Distinta del Cinturón de Kuiper.",
   },
   trancita: {
     ejecutar: "Cálculo, fórmulas, experimentos. Lo que se puede comprobar.",
@@ -136,7 +136,7 @@ export const CIRCLE_VERIFY: Record<
   kuiper: {
     ejecutar: "Código, figuras, cálculo, proyectos, agentes. Lo que produce un artefacto comprobable.",
     contrastar: "Exploración y ampliación desde fuera, sin gobernar el centro.",
-    mapa: "El cinturón de capacidad regular, exterior al núcleo.",
+    mapa: "Órbita propia del Cinturón de Kuiper: nodos cinturianos. Distinta del Vórtice.",
   },
   estructura: {
     ejecutar: "Agentes, archivos, vigilancia, aplicaciones. Lo que corre o se detiene.",
@@ -156,7 +156,7 @@ export const CIRCLE_VERIFY: Record<
   borde: {
     ejecutar: "Flujos entre herramientas. Corren o fallan.",
     contrastar: "Casi nada: el borde no opina, conecta.",
-    mapa: "Colaboración puntual, más allá del cinturón.",
+    mapa: "Posición Borde Exterior. Los nodos asignados aquí son nodos del Borde Exterior.",
   },
 };
 
@@ -207,6 +207,8 @@ const VERIFY_BY_ID: Record<string, VerifyKind> = {
   yata: "contrastar",
   n8n: "ejecutar",
   "william-scy": "mapa",
+  hark: "contrastar",
+  "sider-fusion": "contrastar",
 };
 
 function ring(count: number, radius: number, y: number, phase: number): Vec3[] {
