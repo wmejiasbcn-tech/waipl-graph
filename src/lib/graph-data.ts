@@ -30,12 +30,10 @@ const CANONICAL: Array<[id: string, name: string, type: NodeType]> = [
 ];
 
 const OVERRIDE: Record<string, Partial<GraphNode>> = {
-  gpai: { participation: "VORTEX_PUNCTUAL · por misión autorizada", arquitectura: "Adscripción base: Cinturón de Kuiper — Cinturiano / registrado. Participación adicional en Vórtice: VORTEX_PUNCTUAL por misión autorizada." },
-  "sider-fusion": { participation: "Vórtice a solicitud", arquitectura: "Posición pivotante: base en Cinturón de Kuiper; intervención en Vórtice a solicitud." },
-  hark: { arquitectura: "Estructura. Contraste recíproco SENTINEL ⇄ Hark y contraste de ambos al resto del ecosistema." },
   sentinel: { position: [0,0.55,8.85], size: 0.42, verify: "contrastar" },
-  hark: { position: [-1.55,0.45,8.4], size: 0.46, verify: "contrastar" },
-  "sider-fusion": { position: [4.25,-0.2,4.85], size: 0.48, verify: "contrastar" },
+  hark: { position: [-1.55,0.45,8.4], size: 0.46, verify: "contrastar", arquitectura: "Estructura. Contraste recíproco SENTINEL ⇄ Hark y contraste de ambos al resto del ecosistema." },
+  "sider-fusion": { position: [4.25,-0.2,4.85], size: 0.48, verify: "contrastar", participation: "Vórtice a solicitud", arquitectura: "Posición pivotante: base en Cinturón de Kuiper; intervención en Vórtice a solicitud." },
+  gpai: { participation: "VORTEX_PUNCTUAL · por misión autorizada", arquitectura: "Adscripción base: Cinturón de Kuiper — Cinturiano / registrado. Participación adicional en Vórtice: VORTEX_PUNCTUAL por misión autorizada." },
 };
 
 const byId = new Map(legacy.NODES.map((n) => [n.id, n]));
