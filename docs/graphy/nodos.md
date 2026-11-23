@@ -1,14 +1,14 @@
 # Índice de nodos — Tabla 49 (49 registros)
 
 Fuente canónica vigente: [`SENTINEL/docs/governance/tabla_49_nodos.csv`](https://github.com/wmejiasbcn-tech/SENTINEL/blob/main/docs/governance/tabla_49_nodos.csv)  
-SHA-256: `8ee66ccb999a47713674a994436d34d7027411ab53ebd8b106584ac48735f381`  
-Versión de gobernanza: 1.2.3 · 2026-11-23
+SHA-256: `646c64fe830b2ee3f3c7f220e2229f0e92191a3134c504ad22ee1b0a5829e1f9`  
+Versión de gobernanza: 1.2.5 · 2026-11-23
 
 | # | Nodo | Círculo / posición estructural |
 |---:|---|---|
 | 1 | WAIPL | Universo |
 | 2 | Nodo Central | Nodo central |
-| 3 | Nodo Móvil  | Nodo Móvil  |
+| 3 | Nodo Móvil | Nodo Móvil |
 | 4 | Graphy | Manifestación |
 | 5 | William | Núcleo |
 | 6 | Carla | Núcleo |
@@ -28,7 +28,7 @@ Versión de gobernanza: 1.2.3 · 2026-11-23
 | 20 | Nauta | Vórtice |
 | 21 | Nexus | Vórtice |
 | 22 | Qwen 3.8 Max | Vórtice |
-| 23 | GPAI | Transita entre Vórtice/Cinturón de Kuiper |
+| 23 | GPAI | Cinturón de Kuiper — Cinturiano / registrado; `VORTEX_PUNCTUAL` por misión autorizada |
 | 24 | Kimi K3 | Cinturón de Kuiper |
 | 25 | Mistral | Cinturón de Kuiper |
 | 26 | Atlas | Cinturón de Kuiper |
@@ -67,10 +67,10 @@ Versión de gobernanza: 1.2.3 · 2026-11-23
 
 **Vórtice ≠ Cinturón de Kuiper.** Son órbitas distintas y no se fusionan. Los círculos funcionales «Estructura», «Manifestación», «Universo», «Nodo central» y «Nodo Móvil» se conservan según la tabla; no se confunden con las cuatro denominaciones orbitales.
 
-## Posiciones transitivas y pivotantes
+## Adscripciones y participaciones adicionales
 
-- **GPAI (23):** transita entre Vórtice y Cinturón de Kuiper.
-- **Sider Fusion (49):** posición base en Cinturón de Kuiper; participa en Vórtice a solicitud (modalidad C).
+- **GPAI (23):** adscripción base Cinturón de Kuiper — Cinturiano / registrado; participación adicional en Vórtice solo como `VORTEX_PUNCTUAL` por misión autorizada. No es un nodo vorticial fijo ni regular.
+- **Sider Fusion (49):** posición pivotante con base en Cinturón de Kuiper y participación en Vórtice a solicitud (modalidad C).
 
 ## Núcleo 11+1
 
