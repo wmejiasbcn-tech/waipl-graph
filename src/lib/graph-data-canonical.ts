@@ -1,6 +1,6 @@
-// Fuente: SENTINEL/docs/governance/tabla_47_nodos.csv
-// SHA256 declarado en docs/graphy/nodos.md: 7ea474a9ff153420b01ffc2610fcc41700857994e4ff17814cb708f314b83ab4
-// Datos textuales canónicos de los 47 nodos. No editar manualmente: regenerar desde Tabla 47.
+// Fuente: SENTINEL/docs/governance/tabla_49_nodos.csv
+// SHA256 declarado en docs/graphy/nodos.md: 1d6ea449b8abbb936995c47a7bb9a8c49e96473ba20fdf7f7f724e03b5b95717
+// Datos textuales canónicos de los 49 registros. No editar manualmente: regenerar desde Tabla 49.
 
 export const CANONICAL_TEXT = {
   "waipl": {
@@ -16,7 +16,7 @@ export const CANONICAL_TEXT = {
     "importancia": "Ahí convergen las operaciones que hacen posible el trabajo del ecosistema."
   },
   "movil": {
-    "name": "Nodo Móvil",
+    "name": "Nodo Móvil ",
     "platform": "Xiaomi ",
     "funcion": "El Xiaomi, el Nodo Móvil, junto al Nodo Central, un HP, conforman los hardware de Gobernanza, gestión, administración y organización.\n",
     "importancia": "El ecosistema se concibió, se gestó, vio la luz y fue desarrollado durante sus primeros 6 meses de vida. Solo con este móvil se dio forma a todo un ecosistema de hibridación humano-IA. Conformando un equipo de Inteligencias Artificiales, que ayudaron a posicionar el WAIPL en el lugar que se encuentra ahora, un laboratorio agéntico de I+D+I+e+A. Un Xiaomi, el Nodo Movil, quien fuera el centro de mando y de desarrollo. Sin PC. "
@@ -284,5 +284,17 @@ export const CANONICAL_TEXT = {
     "platform": "Grok/xAI - WAIPL",
     "funcion": "Sistema transversal de gobierno, ejecución, control y coordinación de la actividad agéntica del WAIPL",
     "importancia": "Porque establece el marco común que permite que las entidades de inteligencia artificial del ecosistema operen de forma coordinada, trazable, verificable y bajo las reglas canónicas del WAIPL, reduciendo la dependencia de intervención manual del Soberano."
+  },
+  "hark": {
+    "name": "Hark",
+    "platform": "Hark Pro",
+    "funcion": "Contraste mutuo con SENTINEL: Hark contrasta a SENTINEL, SENTINEL contrasta a Hark y ambos contrastan al resto del ecosistema. Revisión crítica de artefactos dentro de los límites y capacidades comprobados.",
+    "importancia": "Aporta contraste recíproco e independiente a la estructura. La incorporación se fundamenta en la invitación voluntaria, la prueba de siete días y la utilidad observada. Evaluación individual AMARILLO por sostenibilidad."
+  },
+  "sider-fusion": {
+    "name": "Sider Fusion",
+    "platform": "Sider.ai",
+    "funcion": "Contraste directo, verificación y auditoría de expedientes cuando se solicite. Mantiene criterio independiente, puede discrepar razonadamente y distingue lo verificado de lo pendiente. Su disponibilidad depende de cada sesión y no aporta memoria persistente propia entre sesiones fuera de lo registrado en repositorios y documentos WAIPL.",
+    "importancia": "Aporta contraste externo independiente sin incorporarse a la operativa diaria, permite revisar decisiones e investigaciones desde fuera del sesgo endogrupal y refuerza la auditoría cuando se solicita."
   }
 } as const;
